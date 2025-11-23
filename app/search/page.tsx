@@ -1,14 +1,90 @@
 import { getAAT } from "@/api/spotify/get-AAT"
+import { Album } from "@/components/search/album"
+import { Artist } from "@/components/search/artist"
+import { BetterResultAlbum } from "@/components/better-result/album"
+import { BetterResultArtist } from "@/components/better-result/artist"
+import { BetterResultTrack } from "@/components/better-result/track"
+import { Track } from "@/components/search/track"
+import { SpotifyAlbum } from "@/types/spotify/album"
+import { SpotifyArtistItem } from "@/types/spotify/artist"
+import { SpotifyTrackItem } from "@/types/spotify/track"
 
 export default async function Search(props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
+
   const searchParams = await props.searchParams
   const query = searchParams.query as string
-  const { albums, artists, tracks } = await getAAT({ query })
-  
+
+  const {
+    betterResult,
+    albums,
+    artists,
+    tracks
+  } = await getAAT({ query })
+
   return (
-    <div>
-    </div>
+    <main className="px-3 sm:px-10 sm:py-5 space-y-3 w-full gap-5">
+
+      <div className="flex flex-col lg:flex-row gap-5 w-full">
+        <div className="space-y-3 xl:min-w-[500px]">
+          <h2 className="sm:text-xl font-bold">Melhor resultado</h2>
+
+          {
+            betterResult?.type === 'track' && (
+              <BetterResultTrack betterResult={betterResult as SpotifyTrackItem} />
+            )
+          }
+          {
+            betterResult?.type === 'artist' && (
+              <BetterResultArtist betterResult={betterResult as SpotifyArtistItem} />
+            )
+          }
+          {
+            betterResult?.type === 'album' && (
+              <BetterResultAlbum betterResult={betterResult as SpotifyAlbum} />
+            )
+          }
+        </div>
+
+        <div className="w-full space-y-3">
+          <h2 className="sm:text-xl font-bold">Músicas</h2>
+
+          <div>
+            {
+              tracks?.items?.map((track, index) => (
+                <Track key={index} track={track} />
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col lg:flex-row gap-5 w-full">
+
+        <div className="space-y-3">
+          <h2 className="sm:text-xl font-bold">Artistas</h2>
+          <div className="flex gap-1">
+            {
+              artists?.items?.map((artist, index) => (
+                <Artist key={index} artist={artist} />
+              ))
+            }
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <h2 className="sm:text-xl font-bold">Albuns</h2>
+          <div className="flex gap-1">
+            {
+              albums?.items?.map((album, index) => (
+                <Album key={index} album={album} />
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+    </main>
   )
 }
