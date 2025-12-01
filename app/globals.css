@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
 :root {
   --background: oklch(0.1796 0.0399 270.8287);
   --foreground: oklch(0.9279 0.0213 268.4266);
@@ -9,7 +10,7 @@
   --card-foreground: oklch(0.9279 0.0213 268.4266);
   --popover: oklch(0.2143 0.0406 270.0716);
   --popover-foreground: oklch(0.9279 0.0213 268.4266);
-  --primary: oklch(0.4140 0.1569 264.4131);
+  --primary: #3c83f6;
   --primary-foreground: oklch(1.0000 0 0);
   --secondary: oklch(0.3457 0.0666 270.1149);
   --secondary-foreground: oklch(0.9061 0.0159 266.2716);
@@ -21,40 +22,24 @@
   --destructive-foreground: oklch(1.0000 0 0);
   --border: oklch(0.3457 0.0666 270.1149);
   --input: oklch(0.3457 0.0666 270.1149);
-  --ring: oklch(0.4140 0.1569 264.4131);
-  --chart-1: oklch(0.4140 0.1569 264.4131);
+  --ring: #3c83f6;
+  --chart-1: #3c83f6;
   --chart-2: oklch(0.7660 0.1179 145.2950);
   --chart-3: oklch(0.8179 0.1705 77.9481);
   --chart-4: oklch(0.6539 0.1926 25.1437);
   --chart-5: oklch(0.6455 0.1622 321.6136);
   --sidebar: oklch(0.1796 0.0399 270.8287);
   --sidebar-foreground: oklch(0.9279 0.0213 268.4266);
-  --sidebar-primary: oklch(0.4140 0.1569 264.4131);
+  --sidebar-primary: #3c83f6;
   --sidebar-primary-foreground: oklch(1.0000 0 0);
   --sidebar-accent: oklch(0.3457 0.0666 270.1149);
   --sidebar-accent-foreground: oklch(1.0000 0 0);
   --sidebar-border: oklch(0.3457 0.0666 270.1149);
-  --sidebar-ring: oklch(0.4140 0.1569 264.4131);
+  --sidebar-ring: #3c83f6;
   --font-sans: ui-sans-serif, system-ui, sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --radius: 0.5rem;
-  --shadow-x: 0px;
-  --shadow-y: 0px;
-  --shadow-blur: 0px;
-  --shadow-spread: 0px;
-  --shadow-opacity: 0;
-  --shadow-color: 0 0 0;
-  --shadow-2xs: 0px 0px 0px 0px hsl(0 0 0 / 0.00);
-  --shadow-xs: 0px 0px 0px 0px hsl(0 0 0 / 0.00);
-  --shadow-sm: 0px 0px 0px 0px hsl(0 0 0 / 0.00), 0px 1px 2px -1px hsl(0 0 0 / 0.00);
-  --shadow: 0px 0px 0px 0px hsl(0 0 0 / 0.00), 0px 1px 2px -1px hsl(0 0 0 / 0.00);
-  --shadow-md: 0px 0px 0px 0px hsl(0 0 0 / 0.00), 0px 2px 4px -1px hsl(0 0 0 / 0.00);
-  --shadow-lg: 0px 0px 0px 0px hsl(0 0 0 / 0.00), 0px 4px 6px -1px hsl(0 0 0 / 0.00);
-  --shadow-xl: 0px 0px 0px 0px hsl(0 0 0 / 0.00), 0px 8px 10px -1px hsl(0 0 0 / 0.00);
-  --shadow-2xl: 0px 0px 0px 0px hsl(0 0 0 / 0.00);
-  --tracking-normal: 0em;
-  --spacing: 0.25rem;
+  --radius: 1rem;
 }
 
 .dark {
@@ -64,7 +49,7 @@
   --card-foreground: oklch(0.9279 0.0213 268.4266);
   --popover: oklch(0.2143 0.0406 270.0716);
   --popover-foreground: oklch(0.9279 0.0213 268.4266);
-  --primary: oklch(0.4140 0.1569 264.4131);
+  --primary: #3c83f6;
   --primary-foreground: oklch(1.0000 0 0);
   --secondary: oklch(0.3457 0.0666 270.1149);
   --secondary-foreground: oklch(0.9061 0.0159 266.2716);
@@ -76,38 +61,24 @@
   --destructive-foreground: oklch(1.0000 0 0);
   --border: oklch(0.3457 0.0666 270.1149);
   --input: oklch(0.3457 0.0666 270.1149);
-  --ring: oklch(0.4140 0.1569 264.4131);
-  --chart-1: oklch(0.4140 0.1569 264.4131);
+  --ring: #3c83f6;
+  --chart-1: #3c83f6;
   --chart-2: oklch(0.7660 0.1179 145.2950);
   --chart-3: oklch(0.8179 0.1705 77.9481);
   --chart-4: oklch(0.6539 0.1926 25.1437);
   --chart-5: oklch(0.6455 0.1622 321.6136);
   --sidebar: oklch(0.1796 0.0399 270.8287);
   --sidebar-foreground: oklch(0.9279 0.0213 268.4266);
-  --sidebar-primary: oklch(0.4140 0.1569 264.4131);
+  --sidebar-primary: #3c83f6;
   --sidebar-primary-foreground: oklch(1.0000 0 0);
   --sidebar-accent: oklch(0.3457 0.0666 270.1149);
   --sidebar-accent-foreground: oklch(1.0000 0 0);
   --sidebar-border: oklch(0.3457 0.0666 270.1149);
-  --sidebar-ring: oklch(0.4140 0.1569 264.4131);
+  --sidebar-ring: #3c83f6;
   --font-sans: ui-sans-serif, system-ui, sans-serif;
   --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --radius: 0.5rem;
-  --shadow-x: 0px;
-  --shadow-y: 0px;
-  --shadow-blur: 0px;
-  --shadow-spread: 0px;
-  --shadow-opacity: 0;
-  --shadow-color: 0 0 0;
-  --shadow-2xs: 0px 0px 0px 0px hsl(0 0 0 / 0.00);
-  --shadow-xs: 0px 0px 0px 0px hsl(0 0 0 / 0.00);
-  --shadow-sm: 0px 0px 0px 0px hsl(0 0 0 / 0.00), 0px 1px 2px -1px hsl(0 0 0 / 0.00);
-  --shadow: 0px 0px 0px 0px hsl(0 0 0 / 0.00), 0px 1px 2px -1px hsl(0 0 0 / 0.00);
-  --shadow-md: 0px 0px 0px 0px hsl(0 0 0 / 0.00), 0px 2px 4px -1px hsl(0 0 0 / 0.00);
-  --shadow-lg: 0px 0px 0px 0px hsl(0 0 0 / 0.00), 0px 4px 6px -1px hsl(0 0 0 / 0.00);
-  --shadow-xl: 0px 0px 0px 0px hsl(0 0 0 / 0.00), 0px 8px 10px -1px hsl(0 0 0 / 0.00);
-  --shadow-2xl: 0px 0px 0px 0px hsl(0 0 0 / 0.00);
+  --radius: 1rem;
 }
 
 @theme inline {
@@ -153,14 +124,40 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --shadow-2xs: var(--shadow-2xs);
-  --shadow-xs: var(--shadow-xs);
-  --shadow-sm: var(--shadow-sm);
-  --shadow: var(--shadow);
-  --shadow-md: var(--shadow-md);
-  --shadow-lg: var(--shadow-lg);
-  --shadow-xl: var(--shadow-xl);
-  --shadow-2xl: var(--shadow-2xl);
+  --shadow-x: 0px;
+  --shadow-y: 1px;
+  --shadow-blur: 3px;
+  --shadow-spread: 0px;
+  --shadow-opacity: 0.1;
+  --shadow-color: 0 0% 0%;
+
+  --shadow-2xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.03);
+
+  --shadow-xs: 0px 1px 2px 0px hsl(0 0% 0% / 0.05);
+
+  --shadow-sm:
+    0px 1px 3px 0px hsl(0 0% 0% / 0.10),
+    0px 1px 2px -1px hsl(0 0% 0% / 0.10);
+
+  --shadow-md:
+    0px 4px 6px -1px hsl(0 0% 0% / 0.10),
+    0px 2px 4px -2px hsl(0 0% 0% / 0.10);
+
+  --shadow-lg:
+    0px 10px 15px -3px hsl(0 0% 0% / 0.10),
+    0px 4px 6px -4px hsl(0 0% 0% / 0.10);
+
+  --shadow-xl:
+    0px 20px 25px -5px hsl(0 0% 0% / 0.10),
+    0px 8px 10px -6px hsl(0 0% 0% / 0.10);
+
+  --shadow-2xl:
+    0px 25px 50px -12px hsl(0 0% 0% / 0.25);
+
+  --shadow-inner:
+    inset 0px 2px 4px 0px hsl(0 0% 0% / 0.05);
+
+  --shadow-none: 0px 0px 0px 0px transparent;
 }
 
 @layer base {

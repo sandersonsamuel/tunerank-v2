@@ -1,7 +1,13 @@
+"use client"
+
 import Link from "next/link"
 import { SearchInput } from "./search-input"
+import { useSnapshot } from "valtio"
+import { userState } from "@/valtio"
 
 export const NavBar = () => {
+
+  const user = useSnapshot(userState)
 
   return (
     <div className="md:px-5 py-3 flex justify-between items-center">
@@ -10,8 +16,9 @@ export const NavBar = () => {
       </Link>
 
       <div className="hidden sm:flex gap-5 w-full items-center justify-end">
-        <Link className="hover:underline" href={"/login"}>Entrar</Link>
-        <Link className="hover:underline" href={"/register"}>Criar Conta</Link>
+        {
+          !user.data && <Link className="hover:underline" href={"/login"}>Entrar</Link>
+        }
         <SearchInput />
       </div>
     </div>

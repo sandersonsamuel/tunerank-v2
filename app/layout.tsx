@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from 'next/font/google'
-import "./globals.css";
+import { JetBrains_Mono } from 'next/font/google';
 import { NavBar } from "../components/navbar";
+import "./globals.css";
+import { Toaster } from "react-hot-toast";
+import { AuthProvider } from "@/providers/auth";
 
 export const metadata: Metadata = {
   title: "Tune Rank",
@@ -10,7 +12,7 @@ export const metadata: Metadata = {
 
 const font = JetBrains_Mono({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800'],
 })
 
 export default function RootLayout({
@@ -21,10 +23,13 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`${font.className} antialiased dark`}
+        className={`${font.className} antialiased dark space-y-5`}
       >
-        <NavBar />
-        {children}
+        <AuthProvider>
+          <Toaster />
+          <NavBar />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

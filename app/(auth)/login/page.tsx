@@ -1,65 +1,41 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { loginSchema, LoginSchemaType } from "@/schemas/login"
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from "react-hook-form"
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { auth } from "@/firebase/config"
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { useRouter } from "next/navigation"
+import toast from "react-hot-toast"
 
 export default function Login() {
 
-  const form = useForm<LoginSchemaType>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  })
+  const router = useRouter()
+
+  const loginWithGoogle = async () => {
+
+    try {
+      await signInWithPopup(auth, new GoogleAuthProvider())
+      toast.success("Login realizado com sucesso")
+      router.push("/")
+    } catch (error) {
+      toast.error("Ocorreu um erro ao fazer login")
+      console.log(error)
+    }
+
+  }
 
   return (
     <div className="flex justify-center h-full">
-
       <Card className="w-[400px] h-fit mt-20 scale-110">
         <CardHeader>
-          <CardTitle>Faça login na sua conta.</CardTitle>
-          <CardDescription>Insira seu email e senha para fazer login.</CardDescription>
+          <CardTitle>Faça login com sua conta google</CardTitle>
+          <CardDescription>Entre com sua conta google e comece a avaliar.</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-2">
-          <Form {...form}>
-            <FormField
-              control={form.control}
-              name="email"
-              render={() => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input />
-                  </FormControl>
-                  <FormDescription />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={() => (
-                <FormItem>
-                  <FormLabel>Senha</FormLabel>
-                  <FormControl>
-                    <Input />
-                  </FormControl>
-                  <FormDescription />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </Form>
-        </CardContent>
         <CardFooter>
-          <Button className="w-full">Entrar</Button>
+          <Button onClick={loginWithGoogle} variant={"outline"} className="w-full flex items-center">
+            Entrar com google
+            <img src="google_logo.png" className="size-5" alt="google logo" />
+          </Button>
         </CardFooter>
       </Card>
     </div>

@@ -1,15 +1,18 @@
+"use client"
+
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { translateType } from "@/lib/utils"
 import { SpotifyTrackItem } from "@/types/spotify/track"
-import { Star } from "lucide-react"
 import Link from "next/link"
-import { StarIcon } from "../star-icon"
+import { useRouter } from "next/navigation"
 
 type Props = {
   betterResult: SpotifyTrackItem,
 }
 
 export const BetterResultTrack = ({ betterResult }: Props) => {
+
+  const router = useRouter()
 
   const artists = betterResult?.artists?.map((artist, index) => (
     <span key={artist.id}>
@@ -21,7 +24,7 @@ export const BetterResultTrack = ({ betterResult }: Props) => {
   ))
 
   return (
-    <Card className="group w-full lg:w-[500px] gap-2 hover:cursor-pointer bg-card/50 hover:bg-card transition-colors">
+    <Card onClick={() => router.push(`/rate/track/${betterResult.id}`)} className="group w-full lg:w-[500px] gap-2 hover:cursor-pointer bg-card/50 hover:bg-card transition-colors">
       <CardHeader>
         <CardTitle className="text-2xl">
           <img className="size-24 sm:size-32 rounded-xl" src={betterResult?.album?.images[0].url} alt={`${betterResult?.album?.name} cover`} />
