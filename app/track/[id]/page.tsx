@@ -1,5 +1,6 @@
 import { getTrack } from "@/api/spotify/get-Track"
 import { RatingTrackCard } from "@/components/rating/rating-track-card"
+import { TrackRates } from "@/components/rating/track-rates"
 import { Button } from "@/components/ui/button"
 import { Heart, Share2 } from "lucide-react"
 
@@ -7,10 +8,14 @@ type Props = {
   params: Promise<{ id: string }>
 }
 
-export default async function RateTrackPage({ params }: Props) {
+export default async function TrackPage({ params }: Props) {
 
   const { id } = await params
   const track = await getTrack(id)
+
+  if (!track) {
+    return <div>Track not found</div>
+  }
 
   return (
     <div className="flex flex-col items-center gap-4 px-3">
@@ -29,7 +34,8 @@ export default async function RateTrackPage({ params }: Props) {
         </Button>
       </div>
 
-      <RatingTrackCard trackId={id} />
+      <RatingTrackCard key={id} trackId={id} />
+      <TrackRates trackId={id} />
     </div>
   )
 }

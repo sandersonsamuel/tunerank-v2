@@ -8,11 +8,14 @@ type Props = {
   query: string
 }
 
-interface getAATResponse extends SpotifySearchResult {
+interface GetAATResponse extends SpotifySearchResult {
   betterResult?: SpotifyAlbum | SpotifyTrackItem | SpotifyArtist,
 }
 
-export const getAAT = async ({ query }: Props): Promise<getAATResponse> => {
+export const getAAT = async ({ query }: Props): Promise<GetAATResponse> => {
+
+  if (!query) return {}
+
   const token = await getSpotifyToken()
 
   const response = await fetch(

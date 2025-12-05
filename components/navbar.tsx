@@ -4,21 +4,26 @@ import Link from "next/link"
 import { SearchInput } from "./search-input"
 import { useSnapshot } from "valtio"
 import { userState } from "@/valtio"
+import { cn } from "@/lib/utils"
+import { usePathname } from "next/navigation"
 
 export const NavBar = () => {
 
   const user = useSnapshot(userState)
+  const pathName = usePathname()
 
   return (
-    <div className="md:px-5 py-3 flex justify-between items-center">
-      <Link href={"/"} className="w-full">
+    <div className="px-3 md:px-5 py-3 flex justify-between gap-3 items-center">
+      <Link href={"/"} className="sm:w-full">
         <img className="w-44 sm:w-60" src="Tune_Rank.svg" alt="logo tune rank" />
       </Link>
 
-      <div className="hidden sm:flex gap-5 w-full items-center justify-end">
-        {
-          !user.data && <Link className="hover:underline" href={"/login"}>Entrar</Link>
-        }
+      <div className={cn("sm:flex gap-5 sm:w-full items-center justify-end", pathName != "/search" ? "hidden" : "")}>
+        <span className="hidden sm:block">
+          {
+            !user.data && <Link className="hover:underline" href={"/login"}>Entrar</Link>
+          }
+        </span>
         <SearchInput />
       </div>
     </div>

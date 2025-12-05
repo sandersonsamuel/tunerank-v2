@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import { motion } from 'motion/react'
+import Typewriter from 'typewriter-effect';
 
 export default function Home() {
 
@@ -16,12 +17,12 @@ export default function Home() {
     "Mina feia"];
 
   return (
-    <div className='bg-background min-h-screen flex flex-col items-center gap-5 mb-0'>
+    <div className='bg-background min-h-screen flex flex-col items-center gap-5'>
       <div className="text-4xl font-black text-center">
         <h1>Seu gosto,</h1>
         <h1 className="text-primary">Quantificado.</h1>
       </div>
-      <h2 className="text-center">
+      <h2 className="text-center mx-3">
         Acompanhe cada batida, avalie cada detalhe e
         compartilhe suas opiniões mais sinceras.
       </h2>
@@ -86,6 +87,18 @@ export default function Home() {
           </div>
         </CardContent>
       </Card>
+
+      <div className="mx-2 text-center text-2xl space-y-2">
+        <p className="">Pesquise por <b> albuns</b>, <b>musicas</b> ou <b>artistas</b>: </p>
+
+        <Typewriter options={{
+          strings: ['Kendrick lammar', 'Nego drama', 'Nada como um dia após o outro'],
+          autoStart: true,
+          loop: true,
+          cursor: "_",
+        }} />
+
+      </div>
 
     </div>
   );

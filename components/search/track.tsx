@@ -1,6 +1,7 @@
 "use client"
 
 import { SpotifyTrackItem } from "@/types/spotify/track"
+import { motion } from "motion/react"
 import { useRouter } from "next/navigation"
 
 type Props = {
@@ -12,7 +13,7 @@ export const Track = ({ track }: Props) => {
   const router = useRouter()
 
   return (
-    <div onClick={() => router.push(`/rate/track/${track.id}`)} className="flex w-full items-center justify-between hover:bg-card rounded-lg p-2 cursor-pointer pr-4">
+    <motion.div whileTap={{ scale: 0.97, backgroundColor: "var(--card)" }} onClick={() => router.push(`/track/${track.id}`)} className="flex w-full items-center justify-between hover:bg-card rounded-lg p-2 cursor-pointer pr-4">
       <div className="flex gap-3">
         <img className="size-16 rounded-xl object-cover" src={track?.album?.images[2].url} alt={`${track?.name} cover`} />
         <div className="flex flex-col justify-center">
@@ -29,6 +30,6 @@ export const Track = ({ track }: Props) => {
           </span>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

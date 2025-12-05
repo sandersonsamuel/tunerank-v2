@@ -1,4 +1,5 @@
 import { db } from "@/firebase/config"
+import { useQueryClient } from "@tanstack/react-query"
 import { User } from "firebase/auth"
 import { doc, serverTimestamp, setDoc } from "firebase/firestore"
 import toast from "react-hot-toast"
@@ -7,7 +8,7 @@ export const postRating = async (rate: number, comment: string, trackId: string,
 
   try {
     const newRating = {
-      id: `${user.uid}_${trackId}`,
+      id: `${trackId}_${user.uid}`,
       userId: user.uid,
       trackId: trackId,
       rating: rate,
@@ -18,6 +19,7 @@ export const postRating = async (rate: number, comment: string, trackId: string,
 
     await setDoc(doc(db, "ratings", newRating.id), newRating)
     toast.success("Avaliação salva com sucesso")
+    
   } catch (error: any) {
     console.log(error)
     toast.error(error.message || "Ocorreu um erro ao salvar a avaliação")

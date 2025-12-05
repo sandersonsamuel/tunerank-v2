@@ -1,16 +1,15 @@
 "use client"
 
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import { StarRate } from "./star-rate"
 
 type Props = {
   setRate: Dispatch<SetStateAction<number>>
-  setRateHover: Dispatch<SetStateAction<number>>
   rate: number
-  rateHover: number
 }
 
-export const StarRateContainer = ({ setRate, setRateHover, rate, rateHover }: Props) => {
+export const StarRateContainer = ({ setRate, rate }: Props) => {
+  const [rateHover, setRateHover] = useState(0)
 
   const setRateHandler = (index: number, type: "hover" | "click") => {
     if (type === "hover") {

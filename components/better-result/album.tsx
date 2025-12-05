@@ -22,7 +22,7 @@ export const BetterResultAlbum = ({ betterResult }: Props) => {
     <Card className="group max-w-[500px] gap-2 hover:cursor-pointer bg-card/50 hover:bg-card transition-colors">
       <CardHeader>
         <CardTitle className="text-2xl">
-          <img className="size-24 sm:size-32 rounded-xl" src={betterResult?.images[0].url} alt={`${betterResult?.name} cover`} />
+          <img className="size-24 sm:size-32 rounded-xl" src={betterResult?.images[1].url} alt={`${betterResult?.name} cover`} />
         </CardTitle>
       </CardHeader>
       <CardFooter className="flex justify-between items-center gap-1">

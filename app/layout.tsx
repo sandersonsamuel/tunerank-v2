@@ -4,6 +4,8 @@ import { NavBar } from "../components/navbar";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/providers/auth";
+import { Tabbar } from "@/components/tabbar";
+
 
 export const metadata: Metadata = {
   title: "Tune Rank",
@@ -20,14 +22,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="pt-BR">
       <body
-        className={`${font.className} antialiased dark space-y-5`}
+        className={`${font.className} antialiased dark space-y-5 relative mb-32`}
       >
         <AuthProvider>
           <Toaster />
           <NavBar />
+          <Tabbar />
           {children}
         </AuthProvider>
       </body>

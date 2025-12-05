@@ -16,7 +16,7 @@ export const SwiperAlbum = ({ albums }: Props) => {
       {albums.map((album) => (
         <SwiperSlide key={album.id} className='space-y-2 max-w-[120px]'>
           <img className='w-[120px] rounded-lg object-cover'
-            src={album.images[0].url}
+            src={album.images[1].url}
             alt={album.name}
             title={album.name + " profile photo"} />
           <p className='text-start text-xs font-semibold text-neutral-200 truncate'>{album.name}</p>

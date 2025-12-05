@@ -16,7 +16,7 @@ export const SwiperArtist = ({ artists }: Props) => {
       {artists.map((artist) => (
         <SwiperSlide key={artist.id} className='space-y-2 sm:space-x-5 max-w-[150px] !w-fit'>
           <img className='size-[120px] rounded-full object-cover'
-            src={artist.images[0].url}
+            src={artist.images[1].url}
             alt={artist.name}
             title={artist.name + " profile photo"} />
           <p className='text-start text-xs font-semibold text-neutral-200'>{artist.name}</p>

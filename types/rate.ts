@@ -8,3 +8,13 @@ export type Rate = {
   createdAt: Timestamp,
   updatedAt: Timestamp
 }
+
+export type DataChartRateReview = {
+  rating: number,
+  count: number
+}
+
+export type TrackRatesReview = {
+  data: DataChartRateReview[],
+  avarege: number
+}

@@ -26,7 +26,7 @@ export default function Login() {
 
   return (
     <div className="flex justify-center h-full">
-      <Card className="w-[400px] h-fit mt-20 scale-110">
+      <Card className="w-[80%] sm:w-[400px] h-fit mt-20 scale-110">
         <CardHeader>
           <CardTitle>Faça login com sua conta google</CardTitle>
           <CardDescription>Entre com sua conta google e comece a avaliar.</CardDescription>
