@@ -67,13 +67,13 @@ export const ReviewsChart = ({ rates }: Props) => {
       </CardContent>
       <CardFooter className="flex gap-2 items-center justify-end">
         {
-          !Number.isNaN(rates.avarege) ? (
+          rates.total > 0 ? (
             <p className={cn("text-xl", rates.avarege < 3 ? "text-red-400" : rates.avarege >= 3 && rates.avarege < 4 ? "text-yellow-400" : rates.avarege >= 4 ? "text-blue-400" : "text-gray-400")}>{rates.avarege.toFixed(1)}</p>
           ) : (
             <p className={cn("text-sm", "text-gray-400")}>{"Seja o primeiro a avaliar"}</p>
           )
         }
-        <CircleStar className={cn(rates.avarege < 3 ? "text-red-400" : rates.avarege >= 3 && rates.avarege < 4 ? "text-yellow-400" : rates.avarege >= 4 ? "text-blue-400" : "text-gray-400")} />
+        <CircleStar className={cn(rates.avarege < 3 && rates.total > 0 ? "text-red-400" : rates.avarege >= 3 && rates.avarege < 4 && rates.total > 0 ? "text-yellow-400" : rates.avarege >= 4 && rates.total > 0 ? "text-blue-400" : "text-gray-400")} />
       </CardFooter>
     </Card>
   )

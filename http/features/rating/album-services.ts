@@ -1,15 +1,15 @@
 import { db } from "@/firebase/config"
-import { DataChartRateReview, Rate, RatesReview } from "@/types/rate"
+import { DataChartRateReview, RateAlbum, RatesReview } from "@/types/rate"
 import { User } from "firebase/auth"
-import { collection, deleteDoc, doc, documentId, getDoc, getDocs, query, serverTimestamp, setDoc, where } from "firebase/firestore"
+import { collection, doc, documentId, getDoc, getDocs, query, serverTimestamp, setDoc, where } from "firebase/firestore"
 import toast from "react-hot-toast"
 
-export const postRating = async (rate: number, comment: string, trackId: string, user: User) => {
+export const postRatingAlbum = async (rate: number, comment: string, albumId: string, user: User) => {
   try {
     const newRating = {
-      id: `${trackId}_${user.uid}`,
+      id: `${albumId}_${user.uid}`,
       userId: user.uid,
-      trackId: trackId,
+      albumId: albumId,
       rating: rate,
       review: comment,
       createdAt: serverTimestamp(),
@@ -26,24 +26,24 @@ export const postRating = async (rate: number, comment: string, trackId: string,
   }
 }
 
-export const getRating = async (document_id?: string): Promise<Rate | null> => {
+export const getRatingAlbum = async (document_id?: string): Promise<RateAlbum | null> => {
   try {
     if (document_id) {
       const docRef = doc(db, "ratings", document_id)
       const docSnap = await getDoc(docRef)
 
       if (docSnap.exists()) {
-        return docSnap.data() as Rate
+        return docSnap.data() as RateAlbum
       } else {
         return null
       }
     } else {
       return {
         userId: "",
-        trackId: "",
+        albumId: "",
         rating: 0,
         review: ""
-      } as Rate
+      } as RateAlbum
     }
   } catch (error) {
     console.log(error)
@@ -51,16 +51,16 @@ export const getRating = async (document_id?: string): Promise<Rate | null> => {
   }
 }
 
-export const getTrackRates = async (trackId: string): Promise<RatesReview> => {
+export const getAlbumRates = async (albumId: string): Promise<RatesReview> => {
   const q = query(
     collection(db, "ratings"),
-    where(documentId(), ">=", trackId + "_"),
-    where(documentId(), "<=", trackId + "_\uf8ff")
+    where(documentId(), ">=", albumId + "_"),
+    where(documentId(), "<=", albumId + "_\uf8ff")
   );
 
   const querySnapshot = await getDocs(q);
-  const data = querySnapshot.docs.map(doc => doc.data() as Rate)
-  const trackRateData = [{
+  const data = querySnapshot.docs.map(doc => doc.data() as RateAlbum)
+  const albumRateData = [{
     rating: 0.5,
     count: 0
   }, {
@@ -94,9 +94,9 @@ export const getTrackRates = async (trackId: string): Promise<RatesReview> => {
   let ratesSum = 0
 
   data.forEach((rate) => {
-    trackRateData.forEach((trackRate) => {
-      if (rate.rating === trackRate.rating) {
-        trackRate.count++
+    albumRateData.forEach((albumRate) => {
+      if (rate.rating === albumRate.rating) {
+        albumRate.count++
       }
     })
 
@@ -104,7 +104,8 @@ export const getTrackRates = async (trackId: string): Promise<RatesReview> => {
   })
 
   return {
-    data: trackRateData,
-    avarege: data.length > 0 ? ratesSum / data.length : 0
+    data: albumRateData,
+    avarege: data.length > 0 ? ratesSum / data.length : 0,
+    total: data.length
   }
 }

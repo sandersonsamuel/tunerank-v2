@@ -4,9 +4,9 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
-import { useGetRatingTrack } from "@/http/features/rating/hooks"
-import { postRatingTrack } from "@/http/features/rating/track-services"
-import { RateTrack } from "@/types/rate"
+import { postRatingAlbum } from "@/http/features/rating/album-services"
+import { useGetRatingAlbum } from "@/http/features/rating/hooks"
+import { RateAlbum } from "@/types/rate"
 import { userState } from "@/valtio"
 import { useQueryClient } from "@tanstack/react-query"
 import { User } from "firebase/auth"
@@ -18,16 +18,16 @@ import { useSnapshot } from "valtio"
 import { StarRatingInput } from "./star-rate-container"
 
 type Props = {
-  trackId: string
+  albumId: string
 }
 
-export const TrackRatingCard = ({ trackId }: Props) => {
+export const AlbumRatingCard = ({ albumId }: Props) => {
 
   const router = useRouter()
   const [rate, setRate] = useState(0)
   const [comment, setComment] = useState("")
   const { data } = useSnapshot(userState)
-  const { data: rating } = useGetRatingTrack(trackId, data?.uid)
+  const { data: rating } = useGetRatingAlbum(albumId, data?.uid)
   const queryClient = useQueryClient()
 
   useEffect(() => {
@@ -45,19 +45,19 @@ export const TrackRatingCard = ({ trackId }: Props) => {
 
     if (data) {
       const user = data as User
-      postRatingTrack(rate, comment, trackId, user).then(() => {
-        const newRating: RateTrack = {
+      postRatingAlbum(rate, comment, albumId, user).then(() => {
+        const newRating: RateAlbum = {
           userId: user.uid,
-          trackId: trackId,
+          albumId: albumId,
           rating: rate,
           review: comment,
           createdAt: Timestamp.now(),
           updatedAt: Timestamp.now()
         }
 
-        queryClient.setQueryData(["rating-track", trackId, user.uid], newRating)
-        queryClient.invalidateQueries({ queryKey: ["rating-track", trackId, user.uid] })
-        queryClient.invalidateQueries({ queryKey: ["track-rates", trackId] })
+        queryClient.setQueryData(["rating-album", albumId, user.uid], newRating)
+        queryClient.invalidateQueries({ queryKey: ["rating-album", albumId, user.uid] })
+        queryClient.invalidateQueries({ queryKey: ["album-rates", albumId] })
       })
     } else {
       router.push("/login")
@@ -68,7 +68,7 @@ export const TrackRatingCard = ({ trackId }: Props) => {
 
   return (
     <Card className="w-full rounded-3xl p-4 max-w-[500px] gap-0">
-      <CardHeader className="text-center text-slate-500">Avalie essa música</CardHeader>
+      <CardHeader className="text-center text-slate-500">Avalie esse álbum</CardHeader>
       <CardContent className="flex flex-col items-center px-0">
         <StarRatingInput rate={rate} setRate={setRate} />
         <Textarea placeholder="Escreva sua avaliação aqui" className="mt-4 text-xs" value={comment} onChange={(e) => setComment(e.target.value)} />

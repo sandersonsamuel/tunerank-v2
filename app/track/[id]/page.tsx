@@ -20,10 +20,10 @@ export default async function TrackPage({ params }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-4 px-3">
-      <img className="w-[180px] rounded-lg" src={track.album.images[0].url} alt={track.name + "album photo"} />
+      <img className="w-[180px] h-[180px] object-cover rounded-lg" src={track.album.images[0].url} alt={track.name + "album photo"} />
       <div className="flex flex-col items-center">
-        <p className="text-3xl font-bold">{track.name}</p>
-        <p className="text-slate-400">{track.artists[0].name} - {track.album.release_date.slice(0, 4)}</p>
+        <p className="text-3xl font-bold line-clamp-2 text-center">{track.name}</p>
+        <p className="text-slate-400 line-clamp-1 text-center">{track.artists[0].name} - {track.album.release_date.slice(0, 4)}</p>
       </div>
 
       <div className="flex gap-2">
