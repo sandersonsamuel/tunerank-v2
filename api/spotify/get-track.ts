@@ -1,7 +1,7 @@
 import { SpotifyTrackItem } from "@/types/spotify/track"
 import { getSpotifyToken } from "."
 
-export const getTrack = async (id: string) : Promise<SpotifyTrackItem> => {
+export const getTrack = async (id: string): Promise<SpotifyTrackItem> => {
   const token = await getSpotifyToken()
 
   const response = await fetch(
@@ -10,7 +10,8 @@ export const getTrack = async (id: string) : Promise<SpotifyTrackItem> => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
+      cache: "no-store",
+    },
   )
 
   const data = await response.json()

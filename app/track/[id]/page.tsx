@@ -1,8 +1,9 @@
-import { getTrack } from "@/api/spotify/get-Track"
+import { getTrack } from "@/api/spotify/get-track"
+import { LikeTrack } from "@/components/like-track"
 import { RatingTrackCard } from "@/components/rating/rating-track-card"
 import { TrackRates } from "@/components/rating/track-rates"
 import { Button } from "@/components/ui/button"
-import { Heart, Share2 } from "lucide-react"
+import { Share2 } from "lucide-react"
 
 type Props = {
   params: Promise<{ id: string }>
@@ -26,9 +27,7 @@ export default async function TrackPage({ params }: Props) {
       </div>
 
       <div className="flex gap-2">
-        <Button variant="outline" size={"icon-lg"}>
-          <Heart className="size-5" />
-        </Button>
+        <LikeTrack trackId={id} />
         <Button variant="outline" size={"icon-lg"}>
           <Share2 className="size-5" />
         </Button>

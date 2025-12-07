@@ -2,7 +2,6 @@ import { db } from "@/firebase/config"
 import { Rate } from "@/types/rate"
 import { useQuery } from "@tanstack/react-query"
 import { doc, getDoc } from "firebase/firestore"
-import toast from "react-hot-toast"
 
 export const useGetRating = (trackId?: string, userId?: string) => {
 
@@ -33,7 +32,6 @@ export const getRating = async (document_id?: string): Promise<Rate | null> => {
     }
   } catch (error) {
     console.log(error)
-    toast.error("Ocorreu um erro ao buscar a avaliação")
     return null
   }
 }

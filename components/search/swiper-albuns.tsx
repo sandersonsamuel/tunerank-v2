@@ -1,6 +1,7 @@
 "use client"
 
 import { SpotifyAlbum } from '@/types/spotify/album';
+import { useRouter } from 'next/navigation';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,10 +12,12 @@ type Props = {
 
 export const SwiperAlbum = ({ albums }: Props) => {
 
+  const router = useRouter()
+
   return (
     <Swiper className='w-full !mx-0 sm:w-auto' slidesPerView={2.5} spaceBetween={30}>
       {albums.map((album) => (
-        <SwiperSlide key={album.id} className='space-y-2 max-w-[120px]'>
+        <SwiperSlide onClick={() => router.push(`/album/${album.id}`)} key={album.id} className='space-y-2 max-w-[120px]'>
           <img className='w-[120px] rounded-lg object-cover'
             src={album.images[1].url}
             alt={album.name}

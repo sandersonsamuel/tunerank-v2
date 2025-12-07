@@ -1,7 +1,7 @@
 "use client"
 
-import { useGetRating } from "@/api/rating/get-rating"
-import { postRating } from "@/api/rating/post-rating"
+import { useGetRating } from "@/api/hooks/queries/rating"
+import { postRating } from "@/api/hooks/mutations/rating"
 import { Rate } from "@/types/rate"
 import { userState } from "@/valtio"
 import { useQueryClient } from "@tanstack/react-query"

@@ -2,9 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { userState } from "@/valtio";
 import { ArrowRight } from "lucide-react";
 import { motion } from 'motion/react'
+import { useRouter } from "next/navigation";
 import Typewriter from 'typewriter-effect';
+import { useSnapshot } from "valtio";
 
 export default function Home() {
 
@@ -15,6 +18,17 @@ export default function Home() {
     "chromakopia", "Pride", "Nego drama",
     "CALL ME IF YOU GET LOST", "Heaven Can Wait",
     "Mina feia"];
+
+  const { data } = useSnapshot(userState)
+  const router = useRouter()
+
+  const redirect = () => {
+    if (data) {
+      return router.push("/search")
+    }
+
+    return router.push("/login")
+  }
 
   return (
     <div className='bg-background min-h-screen flex flex-col items-center gap-5'>
@@ -32,7 +46,7 @@ export default function Home() {
         animate={{ rotate: 0 }}
         transition={{ duration: 1, ease: "easeInOut", repeat: Infinity, repeatType: "reverse" }}
       >
-        <Button size="lg" className="flex items-center gap-2 text-lg rounded-full">Comece a avaliar <ArrowRight /></Button>
+        <Button size="lg" className="flex items-center gap-2 text-lg rounded-full" onClick={redirect}>Comece a avaliar <ArrowRight /></Button>
       </motion.div>
 
       <div className="w-full bg-accent text-slate-300 py-4 overflow-hidden flex whitespace-nowrap">

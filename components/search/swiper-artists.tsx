@@ -1,9 +1,9 @@
 "use client"
 
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { SpotifyArtistItem } from '@/types/spotify/artist';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 type Props = {
   artists: SpotifyArtistItem[]
@@ -18,7 +18,8 @@ export const SwiperArtist = ({ artists }: Props) => {
           <img className='size-[120px] rounded-full object-cover'
             src={artist.images[1].url}
             alt={artist.name}
-            title={artist.name + " profile photo"} />
+            title={artist.name + " profile photo"}
+          />
           <p className='text-start text-xs font-semibold text-neutral-200'>{artist.name}</p>
         </SwiperSlide>
       ))}

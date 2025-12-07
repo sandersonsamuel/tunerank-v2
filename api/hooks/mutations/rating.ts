@@ -1,5 +1,4 @@
 import { db } from "@/firebase/config"
-import { useQueryClient } from "@tanstack/react-query"
 import { User } from "firebase/auth"
 import { doc, serverTimestamp, setDoc } from "firebase/firestore"
 import toast from "react-hot-toast"
