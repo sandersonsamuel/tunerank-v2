@@ -1,7 +1,7 @@
 import { getTrack } from "@/api/spotify/get-track"
 import { LikeTrack } from "@/components/like-track"
 import { RatingTrackCard } from "@/components/rating/rating-track-card"
-import { TrackRates } from "@/components/rating/track-rates"
+import { TrackReviews } from "@/components/track-reviews"
 import { Button } from "@/components/ui/button"
 import { Share2 } from "lucide-react"
 
@@ -34,7 +34,7 @@ export default async function TrackPage({ params }: Props) {
       </div>
 
       <RatingTrackCard key={id} trackId={id} />
-      <TrackRates trackId={id} />
+      <TrackReviews trackId={id} />
     </div>
   )
 }

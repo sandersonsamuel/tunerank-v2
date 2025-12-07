@@ -1,8 +1,8 @@
 import { db } from "@/firebase/config"
-import { DataChartRateReview, Rate, TrackRatesReview } from "@/types/rate";
+import { DataChartRateReview, Rate, RatesReview } from "@/types/rate";
 import { collection, documentId, getDocs, query, where } from "firebase/firestore"
 
-export const getTrackRates = async (trackId: string) : Promise<TrackRatesReview> => {
+export const getTrackRates = async (trackId: string): Promise<RatesReview> => {
   const q = query(
     collection(db, "ratings"),
     where(documentId(), ">=", trackId + "_"),

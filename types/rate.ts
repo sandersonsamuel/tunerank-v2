@@ -14,7 +14,7 @@ export type DataChartRateReview = {
   count: number
 }
 
-export type TrackRatesReview = {
+export type RatesReview = {
   data: DataChartRateReview[],
   avarege: number
 }
