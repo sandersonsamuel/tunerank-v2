@@ -1,15 +1,15 @@
-import { getAAT } from "@/api/spotify/get-AAT"
-import { BetterResultAlbum } from "@/components/better-result/album"
-import { BetterResultArtist } from "@/components/better-result/artist"
-import { BetterResultTrack } from "@/components/better-result/track"
-import { Album } from "@/components/search/album"
-import { Artist } from "@/components/search/artist"
-import { Track } from "@/components/search/track"
-import { SwiperAlbum } from "@/components/search/swiper-albuns"
-import { SwiperArtist } from "@/components/search/swiper-artists"
+import { searchSpotify } from "@/http/spotify/search"
+import { FeaturedAlbum } from "@/components/features/search/featured/album"
+import { FeaturedTrack } from "@/components/features/search/featured/track"
+import { SearchAlbumItem } from "@/components/features/search/list/album"
+import { SearchArtistItem } from "@/components/features/search/list/artist"
+import { SearchTrackItem } from "@/components/features/search/list/track"
+import { SwiperAlbum } from "@/components/features/search/list/swiper-albuns"
+import { SwiperArtist } from "@/components/features/search/list/swiper-artists"
 import { SpotifyAlbum } from "@/types/spotify/album"
 import { SpotifyArtistItem } from "@/types/spotify/artist"
 import { SpotifyTrackItem } from "@/types/spotify/track"
+import { FeaturedArtist } from "@/components/features/search/featured/artist"
 
 export default async function Search(props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -23,7 +23,7 @@ export default async function Search(props: {
     albums,
     artists,
     tracks
-  } = await getAAT({ query })
+  } = await searchSpotify({ query })
 
   return (
     <main className="px-3 sm:px-10 sm:py-5 space-y-3 w-full gap-5">
@@ -35,17 +35,17 @@ export default async function Search(props: {
 
               {
                 betterResult?.type === 'track' && (
-                  <BetterResultTrack betterResult={betterResult as SpotifyTrackItem} />
+                  <FeaturedTrack featuredResult={betterResult as SpotifyTrackItem} />
                 )
               }
               {
                 betterResult?.type === 'artist' && (
-                  <BetterResultArtist betterResult={betterResult as SpotifyArtistItem} />
+                  <FeaturedArtist featuredResult={betterResult as SpotifyArtistItem} />
                 )
               }
               {
                 betterResult?.type === 'album' && (
-                  <BetterResultAlbum betterResult={betterResult as SpotifyAlbum} />
+                  <FeaturedAlbum featuredResult={betterResult as SpotifyAlbum} />
                 )
               }
 
@@ -61,7 +61,7 @@ export default async function Search(props: {
               <div>
                 {
                   tracks?.items?.map((track, index) => (
-                    <Track key={index} track={track} />
+                    <SearchTrackItem key={index} track={track} />
                   ))
                 }
               </div>
@@ -82,7 +82,7 @@ export default async function Search(props: {
               <div className="hidden sm:flex">
                 {
                   artists?.items?.map((artist, index) => (
-                    <Artist key={index} artist={artist} />
+                    <SearchArtistItem key={index} artist={artist} />
                   ))
                 }
               </div>
@@ -96,7 +96,7 @@ export default async function Search(props: {
               <div className="hidden sm:flex">
                 {
                   albums?.items?.map((album, index) => (
-                    <Album key={index} album={album} />
+                    <SearchAlbumItem key={index} album={album} />
                   ))
                 }
               </div>

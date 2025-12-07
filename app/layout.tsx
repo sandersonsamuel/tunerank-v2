@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from 'next/font/google';
-import { NavBar } from "../components/navbar";
+import { NavigationHeader } from "@/components/layout/navbar";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/providers/auth";
-import { Tabbar } from "@/components/tabbar";
+import { MobileTabBar } from "@/components/layout/tabbar";
 
 
 export const metadata: Metadata = {
@@ -30,8 +30,8 @@ export default function RootLayout({
       >
         <AuthProvider>
           <Toaster />
-          <NavBar />
-          <Tabbar />
+          <NavigationHeader />
+          <MobileTabBar />
           {children}
         </AuthProvider>
       </body>

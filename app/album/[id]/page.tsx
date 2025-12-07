@@ -1,5 +1,5 @@
-import { getAlbum } from "@/api/spotify/get-album"
-import { LikeAlbum } from "@/components/like-album"
+import { getAlbum } from "@/http/spotify/albums"
+import { AlbumLikeButton } from "@/components/features/likes/like-album"
 import { Button } from "@/components/ui/button"
 import { Share2 } from "lucide-react"
 
@@ -26,7 +26,7 @@ export default async function AlbumPage({ params }: Props) {
       </div>
 
       <div className="flex gap-2">
-        <LikeAlbum albumId={album.id}/>
+        <AlbumLikeButton albumId={album.id} />
         <Button variant="outline" size={"icon-lg"}>
           <Share2 className="size-5" />
         </Button>

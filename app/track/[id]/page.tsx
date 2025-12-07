@@ -1,7 +1,7 @@
-import { getTrack } from "@/api/spotify/get-track"
-import { LikeTrack } from "@/components/like-track"
-import { RatingTrackCard } from "@/components/rating/rating-track-card"
-import { TrackReviews } from "@/components/track-reviews"
+import { getTrack } from "@/http/spotify/tracks"
+import { TrackLikeButton } from "@/components/features/likes/like-track"
+import { TrackRatingCard } from "@/components/features/rating/rating-track-card"
+import { TrackReviewsList } from "@/components/features/rating/track-reviews"
 import { Button } from "@/components/ui/button"
 import { Share2 } from "lucide-react"
 
@@ -27,14 +27,14 @@ export default async function TrackPage({ params }: Props) {
       </div>
 
       <div className="flex gap-2">
-        <LikeTrack trackId={id} />
+        <TrackLikeButton trackId={id} />
         <Button variant="outline" size={"icon-lg"}>
           <Share2 className="size-5" />
         </Button>
       </div>
 
-      <RatingTrackCard key={id} trackId={id} />
-      <TrackReviews trackId={id} />
+      <TrackRatingCard key={id} trackId={id} />
+      <TrackReviewsList trackId={id} />
     </div>
   )
 }
