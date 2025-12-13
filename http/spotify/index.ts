@@ -1,9 +1,14 @@
 "use server"
 
-let spotifyToken: null | string = null
+let spotifyToken: {
+  value: string
+  expiresAt: number
+} | null = null
 
 export async function getSpotifyToken() {
-  if (spotifyToken) return spotifyToken
+  if (spotifyToken && Date.now() < spotifyToken.expiresAt) {
+    return spotifyToken.value
+  }
 
   const clientId = process.env.SPOTIFY_CLIENT_ID!;
   const clientSecret = process.env.SPOTIFY_CLIENT_SECRET!;
@@ -20,7 +25,11 @@ export async function getSpotifyToken() {
   })
 
   const data = await res.json()
-  spotifyToken = data.access_token
+
+  spotifyToken = {
+    value: data.access_token,
+    expiresAt: Date.now() + (data.expires_in * 1000) - 60000
+  }
 
   return data.access_token
 }

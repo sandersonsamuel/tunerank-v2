@@ -1,5 +1,5 @@
 import { SpotifyTrackItem } from "@/types/spotify/track"
-import { getSpotifyToken } from "./auth"
+import { getSpotifyToken } from "."
 
 export const getTrack = async (id: string): Promise<SpotifyTrackItem> => {
   const token = await getSpotifyToken()

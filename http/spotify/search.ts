@@ -1,5 +1,5 @@
 import { SpotifySearchResult } from "@/types/spotify/aat"
-import { getSpotifyToken } from "./auth"
+import { getSpotifyToken } from "."
 import stringSimilarity from "string-similarity";
 import { SpotifyAlbum, SpotifyArtist } from "@/types/spotify/album";
 import { SpotifyTrackItem } from "@/types/spotify/track";

@@ -11,7 +11,7 @@ export default async function TracksPage({ params }: Props) {
   const album = await getAlbum(id)
 
   return (
-    <div className="px-3">
+    <div className="px-3 mt-7">
       <FeaturedAlbum featuredResult={album} />
       <div className="flex flex-col gap-4 mt-3">
         <h2 className="sm:text-xl font-bold">Faixas</h2>

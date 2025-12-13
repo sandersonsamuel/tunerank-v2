@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "melodymingler.vercel.app",
-      },
+        hostname: "i.scdn.co",
+      }
     ],
   }
 };

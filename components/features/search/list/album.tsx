@@ -7,7 +7,6 @@ type Props = {
 
 export const SearchAlbumItem = ({ album }: Props) => {
 
-
   return (
     <Link href={`/album/${album.id}`}>
       <div className="max-w-[132px] space-y-2 p-3 xl:p-4 hover:bg-card rounded-xl cursor-pointer transition-colors">

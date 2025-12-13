@@ -10,6 +10,7 @@ import { SpotifyAlbum } from "@/types/spotify/album"
 import { SpotifyArtistItem } from "@/types/spotify/artist"
 import { SpotifyTrackItem } from "@/types/spotify/track"
 import { FeaturedArtist } from "@/components/features/search/featured/artist"
+import { getSpotifyRecommendations } from "@/http/spotify/recomendations"
 
 export default async function Search(props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
@@ -17,6 +18,7 @@ export default async function Search(props: {
 
   const searchParams = await props.searchParams
   const query = searchParams.query as string
+  await getSpotifyRecommendations()
 
   const {
     betterResult,

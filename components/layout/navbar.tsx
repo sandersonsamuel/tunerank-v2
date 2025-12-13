@@ -1,11 +1,12 @@
 "use client"
 
-import Link from "next/link"
 import { SearchBar } from "@/components/features/search/search-input"
-import { useSnapshot } from "valtio"
-import { userState } from "@/valtio"
+import { MAIN_PAGES } from "@/constants"
 import { cn } from "@/lib/utils"
+import { userState } from "@/valtio"
+import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useSnapshot } from "valtio"
 
 export const NavigationHeader = () => {
 
@@ -13,9 +14,9 @@ export const NavigationHeader = () => {
   const pathName = usePathname()
 
   return (
-    <div className="px-3 md:px-5 py-3 flex justify-between gap-3 items-center">
+    <div className={cn("px-3 md:px-5 py-3 flex justify-between gap-3 items-center", MAIN_PAGES.includes(pathName) ? "" : "hidden")}>
       <Link href={"/"} className="sm:w-full">
-        <img className="w-44 sm:w-60" src="Tune_Rank.svg" alt="logo tune rank" />
+        <img className="w-44 sm:w-60" src="/Tune_Rank.svg" alt="logo tune rank" />
       </Link>
 
       <div className={cn("sm:flex gap-5 sm:w-full items-center justify-end", pathName != "/search" ? "hidden" : "")}>
