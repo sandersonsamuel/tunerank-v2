@@ -1,6 +1,7 @@
 "use client"
 
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { saveArtist } from "@/dexie/artists"
 import { translateType } from "@/lib/utils"
 import { SpotifyArtistItem } from "@/types/spotify/artist"
 import Link from "next/link"
@@ -16,6 +17,7 @@ export const FeaturedArtist = ({ featuredResult }: Props) => {
   const path = usePathname()
 
   const redirectToArtist = () => {
+    saveArtist(featuredResult)
     if (path === `/artist/${featuredResult.id}`) {
       router.back()
     }

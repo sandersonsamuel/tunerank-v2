@@ -1,11 +1,12 @@
 "use client"
 
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { saveTrack } from "@/dexie/tracks"
 import { translateType } from "@/lib/utils"
 import { SpotifyTrackItem } from "@/types/spotify/track"
 import { motion } from "motion/react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 type Props = {
   featuredResult: SpotifyTrackItem,
@@ -14,6 +15,7 @@ type Props = {
 export const FeaturedTrack = ({ featuredResult }: Props) => {
 
   const router = useRouter()
+  const path = usePathname()
 
   const artists = featuredResult?.artists?.map((artist, index) => (
     <span key={artist.id}>
@@ -24,8 +26,15 @@ export const FeaturedTrack = ({ featuredResult }: Props) => {
     </span>
   ))
 
+  const redirectToTrack = () => {
+    saveTrack(featuredResult)
+    if (path === `/track/${featuredResult.id}`) {
+      router.back()
+    }
+  }
+
   return (
-    <Card onClick={() => router.push(`/track/${featuredResult.id}`)} className="group w-full lg:w-[500px] gap-2 hover:cursor-pointer bg-card/50 hover:bg-card transition-colors">
+    <Card onClick={redirectToTrack} className="group w-full lg:w-[500px] gap-2 hover:cursor-pointer bg-card/50 hover:bg-card transition-colors">
       <CardHeader>
         <CardTitle className="text-2xl">
           <motion.img initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ duration: 0.1 }} className="size-24 sm:size-32 rounded-xl" src={featuredResult?.album?.images[1].url} alt={`${featuredResult?.album?.name} cover`} />

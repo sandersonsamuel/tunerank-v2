@@ -17,8 +17,6 @@ export default async function ArtistPage({ params }: Props) {
   const topTracks = await getArtistTopTracks(id)
   const artistAlbuns = await getArtistAlbums(id)
 
-  console.log(artistAlbuns)
-
   return (
     <div className="min-h-screen">
       <div>

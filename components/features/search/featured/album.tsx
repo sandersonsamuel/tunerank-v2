@@ -1,6 +1,7 @@
 "use client"
 
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { saveAlbum } from "@/dexie/albuns"
 import { useAlbumRates } from "@/http/features/rating/hooks"
 import { cn, translateType } from "@/lib/utils"
 import { SpotifyAlbum } from "@/types/spotify/album"
@@ -28,6 +29,7 @@ export const FeaturedAlbum = ({ featuredResult }: Props) => {
   ))
 
   const redirectToAlbum = () => {
+    saveAlbum(featuredResult)
     if (path === `/album/${featuredResult.id}`) {
       router.back()
     }
