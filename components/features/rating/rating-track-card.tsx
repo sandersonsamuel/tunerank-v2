@@ -2,7 +2,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { useGetRatingTrack } from "@/http/features/rating/hooks"
 import { postRatingTrack } from "@/http/features/rating/track-services"
@@ -12,10 +12,12 @@ import { useQueryClient } from "@tanstack/react-query"
 import { User } from "firebase/auth"
 import { Timestamp } from "firebase/firestore"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import toast from "react-hot-toast"
 import { useSnapshot } from "valtio"
 import { StarRatingInput } from "./star-rate-container"
+import { toPng } from 'html-to-image';
+import { Download } from "lucide-react"
 
 type Props = {
   trackId: string
@@ -29,6 +31,24 @@ export const TrackRatingCard = ({ trackId }: Props) => {
   const { data } = useSnapshot(userState)
   const { data: rating } = useGetRatingTrack(trackId, data?.uid)
   const queryClient = useQueryClient()
+  const ref = useRef<HTMLDivElement>(null)
+
+  const onSaveAvaliation = useCallback(() => {
+    if (ref.current === null) {
+      return
+    }
+
+    toPng(ref.current, { cacheBust: true, })
+      .then((dataUrl) => {
+        const link = document.createElement('a')
+        link.download = `${trackId}.png`
+        link.href = dataUrl
+        link.click()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [ref])
 
   useEffect(() => {
     if (rating) {
@@ -67,12 +87,25 @@ export const TrackRatingCard = ({ trackId }: Props) => {
   const isUpdateMode = !!rating && rating.rating > 0
 
   return (
-    <Card className="w-full rounded-3xl p-4 max-w-[500px] gap-0">
-      <CardHeader className="text-center text-slate-500">Avalie essa música</CardHeader>
+    <Card ref={ref} className="w-full rounded-3xl p-4 max-w-[500px] gap-0 relative">
+      <CardHeader className="flex">
+        <CardTitle className="text-center text-slate-500 w-full mb-3">Avalie essa música</CardTitle>
+        <CardAction className="absolute right-4 top-2">
+          {
+            isUpdateMode && (
+              <Button variant={"outline"} size={"sm"} className="mt-2 self-end" onClick={onSaveAvaliation}><Download /></Button>
+            )
+          }
+        </CardAction>
+      </CardHeader>
+
       <CardContent className="flex flex-col items-center px-0">
         <StarRatingInput rate={rate} setRate={setRate} />
         <Textarea placeholder="Escreva sua avaliação aqui" className="mt-4 text-xs" value={comment} onChange={(e) => setComment(e.target.value)} />
-        <Button disabled={rate === 0} size={"sm"} className="mt-2 self-end" onClick={submitAvaliation}>{isUpdateMode ? "Atualizar avaliação" : "Enviar avaliação"}</Button>
+        <div className="flex gap-2 w-full justify-end">
+          <Button disabled={rate === 0} size={"sm"} className="mt-2 self-end" onClick={submitAvaliation}>{isUpdateMode ? "Atualizar avaliação" : "Enviar avaliação"}</Button>
+        </div>
+
       </CardContent>
     </Card>
   )

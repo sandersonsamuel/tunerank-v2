@@ -49,6 +49,6 @@ export interface SpotifyTrackItem {
   popularity: number;
   preview_url: string | null;
   track_number: number;
-  type: string;
+  type: "track"
   uri: string;
 }

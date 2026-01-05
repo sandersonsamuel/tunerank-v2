@@ -1,9 +1,8 @@
-import { getTrack } from "@/http/spotify/tracks"
 import { TrackLikeButton } from "@/components/features/likes/like-track"
 import { TrackRatingCard } from "@/components/features/rating/rating-track-card"
 import { TrackReviewsList } from "@/components/features/rating/track-reviews"
-import { Button } from "@/components/ui/button"
-import { Share2 } from "lucide-react"
+import { ShareButton } from "@/components/shared/share-button"
+import { getTrack } from "@/http/spotify/tracks"
 
 type Props = {
   params: Promise<{ id: string }>
@@ -17,7 +16,7 @@ export default async function TrackPage({ params }: Props) {
   if (!track) {
     return <div>Track not found</div>
   }
-
+  
   return (
     <div className="flex flex-col items-center gap-4 px-3 mt-7">
       <img className="w-[180px] h-[180px] object-cover rounded-lg" src={track.album.images[0].url} alt={track.name + "album photo"} />
@@ -28,9 +27,7 @@ export default async function TrackPage({ params }: Props) {
 
       <div className="flex gap-2">
         <TrackLikeButton trackId={id} />
-        <Button variant="outline" size={"icon-lg"}>
-          <Share2 className="size-5" />
-        </Button>
+        <ShareButton url={track.external_urls.spotify} title={track.name} type={track.type} />
       </div>
 
       <TrackRatingCard key={id} trackId={id} />
