@@ -5,10 +5,22 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 type Props = {
   url: string
   title: string
+  artist: string
   type: "track" | "album"
 }
 
-export const ShareButton = ({ url, title, type }: Props) => {
+export const ShareButton = ({ url, title, artist, type }: Props) => {
+
+  const titleText = type === "track" ? "Avalie também essa faixa" : "Avalie também esse álbum"
+
+  const handleShare = () => {
+    navigator.share({
+      title,
+      text: `${titleText} "${title}" de ${artist} no TuneRank`,
+      url,
+    })
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -19,7 +31,7 @@ export const ShareButton = ({ url, title, type }: Props) => {
       <DropdownMenuContent>
         <DropdownMenuLabel>Compartilhar</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Link {type === "track" ? "da faixa" : "do álbum"}</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleShare}>Link {type === "track" ? "da faixa" : "do álbum"}</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

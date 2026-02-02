@@ -33,6 +33,9 @@ export const TrackRatingCard = ({ trackId, onSaveAvaliation, isSaving }: Props) 
   const { data: rating } = useGetRatingTrack(trackId, data?.uid)
   const queryClient = useQueryClient()
 
+  const reviewChanged = rating?.review !== comment
+  const rateChanged = rating?.rating !== rate
+
   useEffect(() => {
     if (rating) {
       setRate(rating.rating)
@@ -87,14 +90,14 @@ export const TrackRatingCard = ({ trackId, onSaveAvaliation, isSaving }: Props) 
 
         {
           isSaving && !comment ? null : (
-            <Textarea placeholder="Escreva sua avaliação aqui" className="mt-4 text-xs" value={comment} onChange={(e) => setComment(e.target.value)} />
+            <Textarea placeholder="Escreva sua avaliação aqui" className="mt-4 text-xs max-h-[450px]" value={comment} onChange={(e) => setComment(e.target.value)} />
           )
         }
 
         {
-          !isSaving && (
+          !isSaving && (reviewChanged || rateChanged) && (
             <div className="flex gap-2 w-full justify-end">
-              <Button disabled={rate === 0} size={"sm"} className="mt-2 self-end" onClick={submitAvaliation}>{isUpdateMode ? "Atualizar avaliação" : "Enviar avaliação"}</Button>
+              <Button size={"sm"} className="mt-2 self-end" onClick={submitAvaliation}>{isUpdateMode ? "Atualizar avaliação" : "Enviar avaliação"}</Button>
             </div>
           )
         }
