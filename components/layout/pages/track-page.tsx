@@ -50,7 +50,7 @@ export const TrackPageContainer = ({ track, id }: Props) => {
 
 
     return (
-        <div className={cn("flex flex-col items-center gap-4 px-3 mt-7 bg-background", isSaving && "p-10")} ref={ref}>
+        <div className={cn("flex flex-col items-center gap-4 px-3 mt-7 bg-background", isSaving && "p-10 mt-0")} ref={ref}>
             <img className="w-[180px] h-[180px] object-cover rounded-lg" src={track.album.images[0].url} alt={track.name + "album photo"} />
             <div className="flex flex-col items-center gap-2">
                 <p className="text-3xl font-bold line-clamp-2 text-center">{track.name}</p>
