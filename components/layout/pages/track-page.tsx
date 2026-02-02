@@ -24,27 +24,33 @@ export const TrackPageContainer = ({ track, id }: Props) => {
 
     const onSaveAvaliation = useCallback(() => {
         if (ref.current === null) {
-          return
+            return
         }
         setIsSaving(true)
-        toPng(ref.current, { cacheBust: true, })
-          .then((dataUrl) => {
-            const link = document.createElement('a')
-            link.download = `${track.name}.png`
-            link.href = dataUrl
-            link.click()
-          })
-          .catch((err) => {
-            console.log(err)
-          })
-          .finally(() => {
-            setIsSaving(false)
-          })
-      }, [ref])
+
+        requestAnimationFrame(() => {
+            toPng(ref.current!, {
+                cacheBust: true,
+                pixelRatio: 2,
+            })
+                .then((dataUrl) => {
+                    const link = document.createElement('a')
+                    link.download = `${track.name}.png`
+                    link.href = dataUrl
+                    link.click()
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+                .finally(() => {
+                    setIsSaving(false)
+                })
+        })
+    }, [ref, track.name])
 
 
     return (
-        <div className={cn("flex flex-col items-center gap-4 px-3 mt-7 bg-background", isSaving && "p-10") } ref={ref}>
+        <div className={cn("flex flex-col items-center gap-4 px-3 mt-7 bg-background", isSaving && "p-10")} ref={ref}>
             <img className="w-[180px] h-[180px] object-cover rounded-lg" src={track.album.images[0].url} alt={track.name + "album photo"} />
             <div className="flex flex-col items-center gap-2">
                 <p className="text-3xl font-bold line-clamp-2 text-center">{track.name}</p>

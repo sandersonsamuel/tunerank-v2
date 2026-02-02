@@ -20,7 +20,7 @@ import { StarRatingInput } from "./star-rate-container"
 
 type Props = {
   trackId: string
-  onSaveAvaliation: () => void  
+  onSaveAvaliation: () => void
   isSaving: boolean
 }
 
@@ -84,13 +84,13 @@ export const TrackRatingCard = ({ trackId, onSaveAvaliation, isSaving }: Props) 
 
       <CardContent className="flex flex-col items-center px-0">
         <StarRatingInput rate={rate} setRate={setRate} />
-        
+
         {
           isSaving && !comment ? null : (
             <Textarea placeholder="Escreva sua avaliação aqui" className="mt-4 text-xs" value={comment} onChange={(e) => setComment(e.target.value)} />
           )
         }
-        
+
         {
           !isSaving && (
             <div className="flex gap-2 w-full justify-end">
