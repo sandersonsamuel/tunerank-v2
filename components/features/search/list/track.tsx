@@ -15,8 +15,6 @@ export const SearchTrackItem = ({ track }: Props) => {
   const router = useRouter()
 
   const handleClick = () => {
-    // Only save if it's a SpotifyTrackItem (which has full info)
-    // Assuming for now simple saving is enough or type guard needed
     if ("album" in track) {
       saveTrack(track as SpotifyTrackItem)
     }
@@ -33,11 +31,9 @@ export const SearchTrackItem = ({ track }: Props) => {
           <p className="line-clamp-2 text- lg:text-lg font-bold">{track?.name}</p>
           <span className="text-xs font-bold">
             {track?.artists?.map((artist, index) => (
-              <span key={artist.id}>
+              <span key={artist.id} className="hover:underline text-neutral-400">
                 {index > 0 && ", "}
-                <a className="hover:underline text-neutral-400" href={`/artist/${artist.id}`}>
-                  {artist.name}
-                </a>
+                {artist.name}
               </span>
             ))}
           </span>
