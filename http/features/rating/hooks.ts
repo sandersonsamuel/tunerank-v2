@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { getRatingTrack, getTrackRates } from "./track-services"
 import { getAlbumRates, getRatingAlbum } from "./album-services"
+import { getReleasesByUserId } from "./release-services"
 
 export const useGetRatingTrack = (trackId?: string, userId?: string) => {
   return useQuery({
@@ -33,3 +34,12 @@ export const useAlbumRates = (albumId: string) => {
     enabled: !!albumId
   })
 }
+
+export const useReleasesByUserId = (userId: string) => {
+  return useQuery({
+    queryKey: ["releases-by-user-id", userId],
+    queryFn: () => getReleasesByUserId(userId),
+    enabled: !!userId
+  })
+}
+
