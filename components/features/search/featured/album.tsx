@@ -65,7 +65,7 @@ export const FeaturedAlbum = ({ featuredResult }: Props) => {
         }
         <div className="hidden sm:flex">
           <Link href={featuredResult?.external_urls?.spotify} target="_blank">
-            <img className="min-w-[40px] min-h-[40px] scale-0 transition-all duration-200 group-hover:scale-100" src="Spotify_icon.svg" alt="spotify logo" />
+            <img className="min-w-[40px] min-h-[40px] scale-0 transition-all duration-200 group-hover:scale-100" src="/Spotify_icon.svg" alt="spotify logo" />
           </Link>
         </div>
       </CardFooter>

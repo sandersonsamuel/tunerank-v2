@@ -7,7 +7,7 @@ type Props = {
     name: string
     artist: string
     type: "album" | "track"
-    rating: number
+    rating?: number
     id: string
 }
 
@@ -27,10 +27,12 @@ export const ReleaseItem = ({ img, name, artist, type, rating, id }: Props) => {
                     </span>
                 </div>
             </div>
-            <div className="flex items-center gap-2">
-                <p className="text-lg font-bold">{rating}</p>
-                <StarIcon className="size-5 fill-primary text-primary" />
-            </div>
+            {rating && (
+                <div className="flex items-center gap-2">
+                    <p className="text-lg font-bold">{rating}</p>
+                    <StarIcon className="size-5 fill-primary text-primary" />
+                </div>
+            )}
         </motion.div>
     )
 }

@@ -40,7 +40,16 @@ export const getLikeTrack = async (userId: string, trackId: string) => {
 export const getLikedTracks = async (userId?: string) => {
   if(!userId) return []
   const response = await getDocs(query(collection(db, "likes"), where("userId", "==", userId), where("type", "==", "track")))
-  return response.docs.map(doc => doc.data())
+  return response.docs.map(doc => {
+    const data = doc.data()
+    return {
+      id: doc.id,
+      userId: data.userId,
+      releaseId: data.releaseId,
+      type: data.type,
+      createdAt: data.createdAt
+    }
+  })
 }
 
 // Album Services
@@ -80,5 +89,14 @@ export const getLikeAlbum = async (userId: string, albumId: string) => {
 
 export const getLikedAlbums = async (userId: string) => {
   const response = await getDocs(query(collection(db, "likes"), where("userId", "==", userId), where("type", "==", "album")))
-  return response.docs.map(doc => doc.data())
+  return response.docs.map(doc => {
+    const data = doc.data()
+    return {
+      id: doc.id,
+      userId: data.userId,
+      releaseId: data.releaseId,
+      type: data.type,
+      createdAt: data.createdAt
+    }
+  })
 }

@@ -1,7 +1,7 @@
 import { db } from "@/firebase/config"
 import { getAlbum } from "@/http/spotify/albums"
 import { getTrack } from "@/http/spotify/tracks"
-import { RateRelease, RateReleaseResponse } from "@/types/rate"
+import { RateRelease } from "@/types/rate"
 import { SpotifyAlbum } from "@/types/spotify/album"
 import { SpotifyTrackItem } from "@/types/spotify/track"
 import { collection, getDocs, query, where } from "firebase/firestore"

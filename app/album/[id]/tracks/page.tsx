@@ -22,7 +22,7 @@ export default async function TracksPage({ params }: Props) {
 
         <div className="flex flex-col gap-2">
           {album.tracks.items.map((track) => (
-            <SearchTrackItem key={track.id} track={track} />
+            <SearchTrackItem key={track.id} track={track} minutes />
           ))}
         </div>
       </div>

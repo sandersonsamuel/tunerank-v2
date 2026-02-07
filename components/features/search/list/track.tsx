@@ -6,20 +6,23 @@ import { SpotifyTrackItem } from "@/types/spotify/track"
 import { Heart } from "lucide-react"
 import { motion } from "motion/react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 
 type Props = {
   track: SpotifyTrackItem | SpotifyTrackItemInAlbum
   isLiked?: boolean
+  minutes?: boolean
 }
 
-export const SearchTrackItem = ({ track, isLiked = false }: Props) => {
+export const SearchTrackItem = ({ track, isLiked = false, minutes = false }: Props) => {
 
   const handleClick = () => {
     if ("album" in track) {
       saveTrack(track as SpotifyTrackItem)
     }
   }
+
+  const duration = track.duration_ms / 1000 / 60
+  const durationFormated = `${Math.floor(duration)}:${Math.floor((duration - Math.floor(duration)) * 60)}`
 
   return (
     <Link href={`/track/${track.id}`} onClick={handleClick}>
@@ -41,7 +44,8 @@ export const SearchTrackItem = ({ track, isLiked = false }: Props) => {
           </div>
         </div>
         {isLiked && <Heart className="absolute top-4 right-4 w-4 h-4 fill-primary text-primary/80" />}
+        {minutes && <p className="text-sm font-bold text-neutral-400">{durationFormated}</p>}
       </motion.div>
-      </Link>
+    </Link>
   )
 }

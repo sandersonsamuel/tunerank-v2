@@ -5,7 +5,7 @@ export const getAlbum = async (id: string | string[]): Promise<SpotifyAlbum | {a
   const token = await getSpotifyToken()
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SPOTIFY_BASE_URL}albums${Array.isArray(id) && id.length > 1 ? "?ids=" + id.join(",") : "/" + id}?locale=pt-BR`,
+    `${process.env.NEXT_PUBLIC_SPOTIFY_BASE_URL}albums${Array.isArray(id) && id.length > 1 ? "?ids=" + id.join(",") + "&locale=pt-BR" : "/" + id + "?locale=pt-BR"}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
