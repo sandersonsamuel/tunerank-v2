@@ -4,12 +4,12 @@ import { Heart } from "lucide-react"
 import { motion } from "motion/react"
 
 type Props = {
-  handleClick: () => void
-  isLoading: boolean
+  handleClick?: () => void
+  isLoading?: boolean
   like?: boolean
 }
 
-export const LikeTrackIcon = ({ handleClick, isLoading, like }: Props) => {
+export const LikeButton = ({ handleClick, isLoading, like }: Props) => {
 
   return (
     <motion.span whileTap={{ scale: 0.7 }} onClick={handleClick}>

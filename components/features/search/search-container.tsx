@@ -8,11 +8,14 @@ import { SearchArtistItem } from "@/components/features/search/list/artist"
 import { SwiperAlbum } from "@/components/features/search/list/swiper-albuns"
 import { SwiperArtist } from "@/components/features/search/list/swiper-artists"
 import { SearchTrackItem } from "@/components/features/search/list/track"
+import { indexedDB } from "@/dexie/index"
+import { useGetLikedAlbums, useGetLikedTracks } from "@/http/features/likes/hooks"
 import { SpotifyAlbum, SpotifyAlbumSearchResponse, SpotifyArtist } from "@/types/spotify/album"
 import { SpotifyArtistItem, SpotifyArtistSearchResponse } from "@/types/spotify/artist"
 import { SpotifyTrackItem, SpotifyTrackSearchResponse } from "@/types/spotify/track"
+import { userState } from "@/valtio"
 import { useLiveQuery } from "dexie-react-hooks"
-import { indexedDB } from "@/dexie/index"
+import { useSnapshot } from "valtio"
 
 type Props = {
   betterResult: SpotifyAlbum | SpotifyTrackItem | SpotifyArtist | undefined
@@ -23,12 +26,20 @@ type Props = {
 
 export const SearchContainer = ({ betterResult, albums, artists, tracks }: Props) => {
 
+  const { data: user } = useSnapshot(userState)
+
   const historyAlbuns = useLiveQuery(() => indexedDB.albuns.orderBy('order').reverse().toArray())
   const historyArtists = useLiveQuery(() => indexedDB.artists.orderBy('order').reverse().toArray())
   const historyTracks = useLiveQuery(() => indexedDB.tracks.orderBy('order').reverse().toArray())
 
   const hasSearch = betterResult || albums?.items?.length || artists?.items?.length || tracks?.items?.length
   const hasHistory = historyAlbuns?.length || historyArtists?.length || historyTracks?.length
+
+  const { data: userLikedTracks } = useGetLikedTracks({ userId: user?.uid })
+  const { data: userLikedAlbums } = useGetLikedAlbums({ userId: user?.uid })
+
+  const isLikedTrack = (trackId: string) => !!userLikedTracks?.some(track => track.releaseId === trackId)
+  const isLikedAlbum = (albumId: string) => !!userLikedAlbums?.some(album => album.releaseId === albumId)
 
   if (!hasSearch) {
     return (
@@ -47,12 +58,12 @@ export const SearchContainer = ({ betterResult, albums, artists, tracks }: Props
               <div className="space-y-3">
                 <h3 className="text-lg font-bold text-neutral-400">Álbuns</h3>
                 <div className="sm:hidden">
-                  <SwiperAlbum albums={historyAlbuns || []} />
+                  <SwiperAlbum albums={historyAlbuns || []} isLikedFn={isLikedAlbum} />
                 </div>
                 <div className="hidden sm:flex gap-4 flex-wrap">
                   {
                     historyAlbuns?.map((album, index) => (
-                      <SearchAlbumItem key={index} album={album} />
+                      <SearchAlbumItem key={index} album={album} isLiked={isLikedAlbum(album.id)} />
                     ))
                   }
                 </div>
@@ -85,7 +96,7 @@ export const SearchContainer = ({ betterResult, albums, artists, tracks }: Props
                 <div>
                   {
                     historyTracks?.map((track, index) => (
-                      <SearchTrackItem key={index} track={track} />
+                      <SearchTrackItem key={index} track={track} isLiked={isLikedTrack(track.id)} />
                     ))
                   }
                 </div>
@@ -133,7 +144,7 @@ export const SearchContainer = ({ betterResult, albums, artists, tracks }: Props
               <div>
                 {
                   tracks?.items?.map((track, index) => (
-                    <SearchTrackItem key={index} track={track} />
+                    <SearchTrackItem key={index} track={track} isLiked={isLikedTrack(track.id)} />
                   ))
                 }
               </div>
@@ -163,12 +174,12 @@ export const SearchContainer = ({ betterResult, albums, artists, tracks }: Props
             <div className="space-y-3">
               <h2 className="sm:text-xl font-bold">Albuns</h2>
               <div className="sm:hidden">
-                <SwiperAlbum albums={albums?.items || []} />
+                <SwiperAlbum albums={albums?.items || []} isLikedFn={isLikedAlbum} />
               </div>
               <div className="hidden sm:flex">
                 {
                   albums?.items?.map((album, index) => (
-                    <SearchAlbumItem key={index} album={album} />
+                    <SearchAlbumItem key={index} album={album} isLiked={isLikedAlbum(album.id)} />
                   ))
                 }
               </div>

@@ -6,7 +6,7 @@ import { userState } from "@/valtio"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { useSnapshot } from "valtio"
-import { LikeTrackIcon } from "@/components/ui/like-button"
+import { LikeButton } from "@/components/ui/like-button"
 
 type Props = {
   albumId: string
@@ -42,6 +42,6 @@ export const AlbumLikeButton = ({ albumId }: Props) => {
   }
 
   return (
-    <LikeTrackIcon handleClick={handleClick} isLoading={isLoading} like={likeAlbumQuery} />
+    <LikeButton handleClick={handleClick} isLoading={isLoading} like={likeAlbumQuery} />
   )
 }

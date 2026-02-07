@@ -1,5 +1,4 @@
 import { db } from "@/firebase/config"
-import { LikeAlbum } from "@/types/album"
 import { Like } from "@/types/track"
 import { collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, Timestamp, where } from "firebase/firestore"
 
@@ -38,7 +37,8 @@ export const getLikeTrack = async (userId: string, trackId: string) => {
   return !!response.data()
 }
 
-export const getLikedTracks = async (userId: string) => {
+export const getLikedTracks = async (userId?: string) => {
+  if(!userId) return []
   const response = await getDocs(query(collection(db, "likes"), where("userId", "==", userId), where("type", "==", "track")))
   return response.docs.map(doc => doc.data())
 }
