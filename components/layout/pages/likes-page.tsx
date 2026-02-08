@@ -44,26 +44,25 @@ export const LikesPageContainer = () => {
 
     if ("albums" in albumsData && "tracks" in tracksData) {
         return (
-            <div className="flex flex-col gap-4 p-3">
-
-                <Button className="max-w-[100px]" variant={"outline"} onClick={() => router.push("/my/profile")}> <ArrowLeft/> Voltar</Button>
+            <div className="max-w-full flex flex-col gap-3">
+                <Button className="max-w-[100px]" variant={"outline"} onClick={() => router.push("/my/profile")}> <ArrowLeft /> Voltar</Button>
 
                 <h2 className="text-xl font-bold">Minhas Curtidas</h2>
 
-                <Tabs defaultValue={tab} className="w-[400px]" onValueChange={toggleTab}>
+                <Tabs defaultValue={tab} className="w-full" onValueChange={toggleTab}>
                     <TabsList>
                         <TabsTrigger value="albums">Álbuns</TabsTrigger>
                         <TabsTrigger value="tracks">Faixas</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="albums">
-                        <div className="flex flex-col gap-2">
+                    <TabsContent className="max-w-full" value="albums">
+                        <div className="flex flex-col gap-2 max-w-full">
                             {albumsData.albums?.map((album) => (
                                 <ReleaseItem key={album.id} img={album.images[1].url || ""} name={album.name || ""} artist={album.artists[0].name || ""} type="album" id={album.id} />
                             ))}
                         </div>
                     </TabsContent>
-                    <TabsContent value="tracks">
-                        <div className="flex flex-col gap-2">
+                    <TabsContent className="max-w-full" value="tracks">
+                        <div className="flex flex-col gap-2 max-w-full">
                             {tracksData.tracks?.map((track) => (
                                 <ReleaseItem key={track.id} img={track.album?.images[1].url || ""} name={track.name || ""} artist={track.artists[0].name || ""} type="track" id={track.id} />
                             ))}
@@ -74,4 +73,3 @@ export const LikesPageContainer = () => {
         )
     }
 }
-    

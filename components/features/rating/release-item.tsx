@@ -21,7 +21,7 @@ export const ReleaseItem = ({ img, name, artist, type, rating, id }: Props) => {
                 <img className="size-16 rounded-xl object-cover" src={img} alt={`${name} cover`} />
 
                 <div className="flex flex-col justify-center">
-                    <p className="line-clamp-2 text- lg:text-lg font-bold">{name}</p>
+                    <p className="line-clamp-1 text- lg:text-lg font-bold">{name}</p>
                     <span className="text-xs font-bold">
                         {artist}
                     </span>

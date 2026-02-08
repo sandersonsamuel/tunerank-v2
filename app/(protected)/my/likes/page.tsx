@@ -6,7 +6,7 @@ import { Suspense } from "react"
 export default function LikesPage() {
 
     return (
-        <div>
+        <div className="p-3 w-screen">
             <Suspense>
                 <LikesPageContainer />
             </Suspense>

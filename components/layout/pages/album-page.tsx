@@ -1,16 +1,16 @@
 "use client"
 
 import { AlbumLikeButton } from "@/components/features/likes/album-like-button"
-import { AlbumRatingCard } from "@/components/features/rating/rating-album-card"
 import { AlbumReviewsList } from "@/components/features/rating/album-reviews"
+import { AlbumRatingCard } from "@/components/features/rating/rating-album-card"
+import { ShareButton } from "@/components/shared/share-button"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { SpotifyAlbum } from "@/types/spotify/album"
 import { toPng } from "html-to-image"
-import { ListMusic, Share2 } from "lucide-react"
+import { ListMusic } from "lucide-react"
 import Link from "next/link"
 import { useCallback, useRef, useState } from "react"
-import { ShareButton } from "@/components/shared/share-button"
 
 type Props = {
     album: SpotifyAlbum
@@ -49,6 +49,7 @@ export const AlbumPageContainer = ({ album }: Props) => {
 
     return (
         <div className={cn("flex flex-col items-center gap-4 px-3 mt-7 bg-background", isSaving && "p-10 mt-0 max-w-[550px]")} ref={ref}>
+            <img className="w-40 sm:w-60" src="/Tune_Rank.svg" alt="logo tune rank" />
             <img className="w-[180px] h-[180px] object-cover rounded-lg" src={album.images[0].url} alt={album.name + " album photo"} />
             <div className="flex flex-col items-center">
                 <p className="text-3xl font-bold line-clamp-2 text-center">{album.name}</p>

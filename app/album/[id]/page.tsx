@@ -1,3 +1,4 @@
+import { NavigationHeader } from "@/components/layout/navbar"
 import { AlbumPageContainer } from "@/components/layout/pages/album-page"
 import { getAlbum } from "@/http/spotify/albums"
 
