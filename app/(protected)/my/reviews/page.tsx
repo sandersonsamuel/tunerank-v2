@@ -1,7 +1,5 @@
 "use client"
 
-import { LikedAlbums } from "@/components/features/likes/liked-albums"
-import { LikedTracks } from "@/components/features/likes/liked-tracks"
 import { ReleaseItem } from "@/components/features/rating/release-item"
 import { ReviewsSkeleton } from "@/components/features/rating/reviews-skeleton"
 import { useReleasesByUserId } from "@/http/features/rating/hooks"
@@ -30,13 +28,6 @@ export default function ReviewsPage() {
 
     return (
         <div className="flex flex-col gap-4 px-3">
-
-            <h2 className="text-xl font-bold">Curtidas</h2>
-
-            <div className="flex justify-around">
-                <LikedAlbums userId={user?.uid || ""} />
-                <LikedTracks userId={user?.uid || ""} />
-            </div>
 
             <h2 className="text-xl font-bold">Minhas avaliações</h2>
 

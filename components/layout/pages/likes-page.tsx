@@ -46,9 +46,9 @@ export const LikesPageContainer = () => {
         return (
             <div className="flex flex-col gap-4 p-3">
 
-                <Button className="max-w-[100px]" variant={"outline"} onClick={() => router.push("/my/reviews")}> <ArrowLeft/> Voltar</Button>
+                <Button className="max-w-[100px]" variant={"outline"} onClick={() => router.push("/my/profile")}> <ArrowLeft/> Voltar</Button>
 
-                <h2 className="text-xl font-bold mt-5">Minhas Curtidas</h2>
+                <h2 className="text-xl font-bold">Minhas Curtidas</h2>
 
                 <Tabs defaultValue={tab} className="w-[400px]" onValueChange={toggleTab}>
                     <TabsList>
