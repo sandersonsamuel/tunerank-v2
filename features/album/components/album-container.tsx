@@ -6,17 +6,23 @@ import { AlbumRatingCard } from "@/components/features/rating/rating-album-card"
 import { ShareButton } from "@/components/shared/share-button"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { SpotifyAlbum } from "@/types/spotify/album"
 import { toPng } from "html-to-image"
 import { ListMusic } from "lucide-react"
 import Link from "next/link"
 import { useCallback, useRef, useState } from "react"
+import { useAlbum } from "../hooks/album.hooks"
 
 type Props = {
-    album: SpotifyAlbum
+    albumId: string
 }
 
-export const AlbumPageContainer = ({ album }: Props) => {
+export const AlbumContainer = ({ albumId }: Props) => {
+
+    const { data: album } = useAlbum(albumId)
+
+    if (!album) {
+        return null
+    }
 
     const ref = useRef<HTMLDivElement>(null)
     const [isSaving, setIsSaving] = useState(false)

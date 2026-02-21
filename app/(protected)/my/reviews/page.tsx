@@ -6,7 +6,7 @@ export default async function ReviewsPage() {
 
     const queryClient = new QueryClient()
 
-    await queryClient.prefetchQuery({
+    await queryClient.ensureQueryData({
         queryKey: ['user-reviews'],
         queryFn: getReviewsServer,
     })

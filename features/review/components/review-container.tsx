@@ -17,6 +17,7 @@ export const ReviewContainer = () => {
                 <h2 className="text-xl font-bold">Minhas avaliações</h2>
 
                 <h2>Álbuns</h2>
+                
                 {albums?.map((review) => (
                     <ReleaseItem key={review.releaseId} img={review.album.images[1].url || ""} name={review.album.name || ""} artist={review.album.artists[0].name || ""} type="album" id={review.releaseId} rating={review.rating} />
                 ))}

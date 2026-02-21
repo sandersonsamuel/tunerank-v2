@@ -1,6 +1,6 @@
-import { NavigationHeader } from "@/components/layout/navbar"
-import { AlbumPageContainer } from "@/components/layout/pages/album-page"
-import { getAlbum } from "@/http/spotify/albums"
+import { AlbumContainer } from "@/features/album/components/album-container"
+import { getAlbumServer } from "@/features/album/http/album.server"
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
 
 type Props = {
   params: Promise<{ id: string }>
@@ -9,13 +9,16 @@ type Props = {
 export default async function AlbumPage({ params }: Props) {
 
   const { id } = await params
-  const album = await getAlbum(id)
 
-  if (!album || Array.isArray(album) || "albums" in album) {
-    return <div>Album not found</div>
-  }
+  const queryClient = new QueryClient()
+  await queryClient.ensureQueryData({
+    queryKey: ['album', id],
+    queryFn: () => getAlbumServer(id),
+  })
 
   return (
-    <AlbumPageContainer album={album} />
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <AlbumContainer albumId={id} />
+    </HydrationBoundary>
   )
 }

@@ -10,8 +10,8 @@ export type Album = {
         id: string
         name: string
     }[]
-    releaseDate: string
-    totalTracks: number
+    release_date: string
+    total_tracks: number
     tracks: {
         total: number
         items: {
