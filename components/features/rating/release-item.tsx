@@ -1,3 +1,5 @@
+"use client"
+
 import { StarIcon } from "lucide-react"
 import { motion } from "motion/react"
 import { useRouter } from "next/navigation"

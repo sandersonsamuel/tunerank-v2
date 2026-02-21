@@ -1,10 +1,10 @@
+import { NavigationHeader } from "@/components/layout/navbar";
+import { MobileTabBar } from "@/components/layout/tabbar";
+import QueryProvider from "@/components/providers/query-provider";
 import type { Metadata } from "next";
 import { JetBrains_Mono } from 'next/font/google';
-import { NavigationHeader } from "@/components/layout/navbar";
-import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import { AuthProvider } from "@/providers/auth";
-import { MobileTabBar } from "@/components/layout/tabbar";
+import "./globals.css";
 
 
 export const metadata: Metadata = {
@@ -28,12 +28,12 @@ export default function RootLayout({
       <body
         className={`${font.className} antialiased dark space-y-5 relative mb-32`}
       >
-        <AuthProvider>
+        <QueryProvider>
           <Toaster />
           <NavigationHeader />
           <MobileTabBar />
           {children}
-        </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

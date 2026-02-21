@@ -17,24 +17,47 @@ import {
     FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { loginSchema } from "@/features/auth/auth.schemas"
+import { loginSchema } from "@/features/auth/schemas/auth.schemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import z from "zod"
-import { Logo } from "../../components/logo"
 import Link from "next/link"
+import { Logo } from "@/components/logo"
+import toast from "react-hot-toast"
+import { useMutation } from "@tanstack/react-query"
+import { login } from "../../http/login"
+import { useRouter } from "next/navigation"
+import { Spinner } from "@/components/ui/spinner"
 
 export function LoginForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
 
+    const router = useRouter()
+
+    const { mutateAsync, isPending } = useMutation({
+        mutationFn: login
+    })
+
     const { handleSubmit, control } = useForm({
-        resolver: zodResolver(loginSchema)
+        resolver: zodResolver(loginSchema),
+        defaultValues: {
+            email: "",
+            password: ""
+        }
     })
 
     const onSubmit = (data: z.infer<typeof loginSchema>) => {
-        console.log(data)
+        toast.promise(
+            mutateAsync(data),
+            {
+                loading: "Entrando...",
+                success: "Login realizado com sucesso!"
+            }
+        ).then(() => {
+            router.push("/")
+        })
     }
 
     return (
@@ -84,7 +107,9 @@ export function LoginForm({
                                 </Field>
                             )} />
                             <Field>
-                                <Button type="submit">Entrar</Button>
+                                <Button disabled={isPending} type="submit">
+                                    {isPending ? <Spinner /> : "Entrar"}
+                                </Button>
                                 <FieldDescription className="text-center">
                                     Não tem uma conta? <Link href="/register">Cadastre-se</Link>
                                 </FieldDescription>

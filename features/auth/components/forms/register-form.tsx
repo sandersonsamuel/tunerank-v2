@@ -16,25 +16,49 @@ import {
     FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { registerSchema } from "@/features/auth/auth.schemas"
+import { registerSchema } from "@/features/auth/schemas/auth.schemas"
 import { cn } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
 import { Controller, useForm } from "react-hook-form"
 import z from "zod"
-import { Logo } from "../../components/logo"
+import { Logo } from "@/components/logo"
+import { useMutation } from "@tanstack/react-query"
+import { register } from "../../http/register"
+import { Spinner } from "@/components/ui/spinner"
+import toast from "react-hot-toast"
+import { useRouter } from "next/navigation"
 
 export function RegisterForm({
     className,
     ...props
 }: React.ComponentProps<"div">) {
 
+    const router = useRouter()
+
+    const { mutateAsync, isPending } = useMutation({
+        mutationFn: register
+    })
+
     const { handleSubmit, control } = useForm({
-        resolver: zodResolver(registerSchema)
+        resolver: zodResolver(registerSchema),
+        defaultValues: {
+            name: "",
+            email: "",
+            password: ""
+        }
     })
 
     const onSubmit = (data: z.infer<typeof registerSchema>) => {
-        console.log(data)
+        toast.promise(
+            mutateAsync(data),
+            {
+                loading: "Cadastrando...",
+                success: "Cadastro realizado com sucesso!"
+            }
+        ).then(() => {
+            router.push("/login")
+        })
     }
 
     return (
@@ -50,7 +74,7 @@ export function RegisterForm({
                 <CardContent>
                     <form onSubmit={handleSubmit(onSubmit)} noValidate>
                         <FieldGroup >
-                            <Controller name="username" control={control} render={({ field, fieldState }) => (
+                            <Controller name="name" control={control} render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="username">Nome</FieldLabel>
                                     <Input
@@ -89,7 +113,9 @@ export function RegisterForm({
                                 </Field>
                             )} />
                             <Field>
-                                <Button type="submit">Cadastrar</Button>
+                                <Button disabled={isPending} type="submit">
+                                    {isPending ? <Spinner /> : "Cadastrar"}
+                                </Button>
                                 <FieldDescription className="text-center">
                                     Já tem uma conta? <Link href="/login">Entrar</Link>
                                 </FieldDescription>
