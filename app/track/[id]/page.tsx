@@ -1,6 +1,7 @@
 
-import { TrackPageContainer } from "@/components/layout/pages/track-page"
-import { getTrack } from "@/http/spotify/tracks"
+import { TrackContainer } from "@/features/track/components/track-container"
+import { getTrackServer } from "@/features/track/http/track.server"
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
 
 type Props = {
   params: Promise<{ id: string }>
@@ -9,14 +10,18 @@ type Props = {
 export default async function TrackPage({ params }: Props) {
 
   const { id } = await params
-  const track = await getTrack(id)
 
-  if (!track || Array.isArray(track) || "tracks" in track) {
-    return <div>Track not found</div>
-  }
+  const queryClient = new QueryClient()
+
+  await queryClient.ensureQueryData({
+    queryKey: ['track', id],
+    queryFn: () => getTrackServer(id),
+  })
 
 
   return (
-    <TrackPageContainer track={track} id={id} />
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <TrackContainer id={id} />
+    </HydrationBoundary>
   )
 }
