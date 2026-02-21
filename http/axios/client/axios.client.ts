@@ -27,7 +27,7 @@ axiosClient.interceptors.response.use(
                 toast.error(error.message + " " + error.path.join(", "));
             })
         } else {
-            toast.error(error.response?.data?.message || "Algo deu errado");
+            toast.error(error.response?.data?.message || error.response?.data?.error || "Algo deu errado");
         }
 
         return Promise.reject(error);

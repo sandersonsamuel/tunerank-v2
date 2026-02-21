@@ -1,6 +1,5 @@
 "use client"
 
-import { TrackLikeButton } from "@/components/features/likes/track-like-button"
 import { TrackRatingCard } from "@/components/features/rating/rating-track-card"
 import { TrackReviewsList } from "@/components/features/rating/track-reviews"
 import { ShareButton } from "@/components/shared/share-button"
@@ -8,6 +7,8 @@ import { cn } from "@/lib/utils"
 import { toPng } from "html-to-image"
 import { useCallback, useRef, useState } from "react"
 import { useTrack } from "../hooks/track.hooks"
+import { useLike } from "@/features/like/hooks/like.hook"
+import { LikeRelease } from "@/components/features/likes/like-release"
 
 type Props = {
     id: string
@@ -16,12 +17,13 @@ type Props = {
 export const TrackContainer = ({ id }: Props) => {
 
     const { data: track } = useTrack(id)
+    const { data: like } = useLike(id)
 
     if (!track) {
         return <div>Track not found</div>
     }
 
-    const firstArtist = track.artists[0] || "Unknown Artist"
+    const firstArtist = track.artists[0] || "Artista desconhecido"
     const restArtists = track.artists.slice(1, 6)
     const ref = useRef<HTMLDivElement>(null)
 
@@ -74,7 +76,7 @@ export const TrackContainer = ({ id }: Props) => {
             {
                 !isSaving && (
                     <div className="flex gap-2">
-                        <TrackLikeButton trackId={id} />
+                        <LikeRelease releaseId={id} like={like} type="TRACK" />
                         <ShareButton url={`/track/${id}`} title={track.name} type="track" artist={firstArtist.name} />
                     </div>
                 )

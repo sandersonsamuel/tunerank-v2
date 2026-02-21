@@ -1,10 +1,11 @@
 "use client"
 
-import { AlbumLikeButton } from "@/components/features/likes/album-like-button"
+import { LikeRelease } from "@/components/features/likes/like-release"
 import { AlbumReviewsList } from "@/components/features/rating/album-reviews"
 import { AlbumRatingCard } from "@/components/features/rating/rating-album-card"
 import { ShareButton } from "@/components/shared/share-button"
 import { Button } from "@/components/ui/button"
+import { useLike } from "@/features/like/hooks/like.hook"
 import { cn } from "@/lib/utils"
 import { toPng } from "html-to-image"
 import { ListMusic } from "lucide-react"
@@ -19,6 +20,7 @@ type Props = {
 export const AlbumContainer = ({ albumId }: Props) => {
 
     const { data: album } = useAlbum(albumId)
+    const { data: like } = useLike(albumId)
 
     if (!album) {
         return null
@@ -66,7 +68,7 @@ export const AlbumContainer = ({ albumId }: Props) => {
             {
                 !isSaving && (
                     <div className="flex gap-2">
-                        <AlbumLikeButton albumId={album.id} />
+                        <LikeRelease releaseId={album.id} like={like} type="ALBUM" />
                         <Link href={`/album/${album.id}/tracks`}>
                             <Button variant="outline" size={"icon-lg"}>
                                 <ListMusic className="size-5" />

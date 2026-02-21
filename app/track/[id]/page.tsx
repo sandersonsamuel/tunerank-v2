@@ -1,4 +1,5 @@
 
+import { getLikeServer } from "@/features/like/http/like.server"
 import { TrackContainer } from "@/features/track/components/track-container"
 import { getTrackServer } from "@/features/track/http/track.server"
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
@@ -16,6 +17,11 @@ export default async function TrackPage({ params }: Props) {
   await queryClient.ensureQueryData({
     queryKey: ['track', id],
     queryFn: () => getTrackServer(id),
+  })
+
+  await queryClient.ensureQueryData({
+    queryKey: ['like', id],
+    queryFn: () => getLikeServer(id),
   })
 
 
