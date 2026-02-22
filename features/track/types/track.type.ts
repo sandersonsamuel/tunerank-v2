@@ -1,17 +1,10 @@
-import { Album } from "@/features/album/types/album.type"
+import { ArtistSummary, Image } from "@/types/shared.type"
 
 export type Track = {
     id: string
     name: string
-    images: {
-        url: string
-    }[]
-    artists: {
-        id: string
-        name: string
-    }[]
-    releaseDate: string
+    images: Image[]
+    release_date: string
     type: string
-    album: Album
-    duration_ms: number
+    artists: ArtistSummary[]
 }

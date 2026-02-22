@@ -57,7 +57,7 @@ export function RegisterForm({
                 success: "Cadastro realizado com sucesso!"
             }
         ).then(() => {
-            router.push("/login")
+            router.push("/auth/login")
         })
     }
 
@@ -117,7 +117,7 @@ export function RegisterForm({
                                     {isPending ? <Spinner /> : "Cadastrar"}
                                 </Button>
                                 <FieldDescription className="text-center">
-                                    Já tem uma conta? <Link href="/login">Entrar</Link>
+                                    Já tem uma conta? <Link href="/auth/login">Entrar</Link>
                                 </FieldDescription>
                             </Field>
                         </FieldGroup>

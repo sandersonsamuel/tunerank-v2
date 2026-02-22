@@ -17,7 +17,7 @@ export const ReviewContainer = () => {
                 <h2 className="text-xl font-bold">Minhas avaliações</h2>
 
                 <h2>Álbuns</h2>
-                
+
                 {albums?.map((review) => {
 
                     const lastImage = review.album.images[review.album.images.length - 1]
@@ -31,7 +31,7 @@ export const ReviewContainer = () => {
                 <h2>Faixas</h2>
                 {tracks?.map((review) => {
 
-                    const lastImage = review.track.album.images[review.track.album.images.length - 1]
+                    const lastImage = review.track.images[review.track.images.length - 1]
 
                     return (
                         <ReleaseItem key={review.releaseId} img={lastImage.url || ""} name={review.track.name || ""} artist={review.track.artists[0].name || ""} type="track" id={review.releaseId} rating={review.rating} />

@@ -22,7 +22,7 @@ export const NavigationHeader = () => {
       <div className={cn("sm:flex gap-5 sm:w-full items-center justify-end", pathName != "/search" ? "hidden" : "")}>
         <span className="hidden sm:block">
           {
-            !user.data && <Link className="hover:underline" href={"/login"}>Entrar</Link>
+            !user.data && <Link className="hover:underline" href={"/auth/login"}>Entrar</Link>
           }
         </span>
         <SearchBar />

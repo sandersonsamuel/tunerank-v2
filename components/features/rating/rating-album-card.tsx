@@ -67,7 +67,7 @@ export const AlbumRatingCard = ({ albumId, onSaveAvaliation, isSaving }: Props) 
         queryClient.invalidateQueries({ queryKey: ["album-rates", albumId] })
       })
     } else {
-      router.push("/login")
+      router.push("/auth/login")
     }
   }
 

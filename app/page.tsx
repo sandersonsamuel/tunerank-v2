@@ -28,7 +28,7 @@ export default function Home() {
       return router.push("/search")
     }
 
-    return router.push("/login")
+    return router.push("/auth/login")
   }
 
   return (

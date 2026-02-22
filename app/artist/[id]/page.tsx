@@ -1,9 +1,7 @@
-import { SearchAlbumItem } from "@/components/features/search/list/album"
 import { SwiperAlbum } from "@/components/features/search/list/swiper-albuns"
 import { SearchTrackItem } from "@/components/features/search/list/track"
 import { getArtist, getArtistAlbums, getArtistTopTracks } from "@/http/spotify/artist"
 import Image from 'next/image'
-import Link from "next/link"
 
 type Props = {
   params: Promise<{ id: string }>
@@ -32,8 +30,6 @@ export default async function ArtistPage({ params }: Props) {
                   to-transparent" />
           <div className="w-full max-w-[500px] p-4 absolute -bottom-9 flex items-center justify-between">
             <h1 className="text-4xl font-bold max-w-1/2 line-clamp-2">{artist.name}</h1>
-            <Link href={artist.external_urls.spotify}>
-              <img src="/Spotify_icon.svg" alt="logo do spotify" className="w-9 h-9" /></Link>
           </div>
         </div>
 

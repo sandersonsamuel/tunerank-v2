@@ -6,13 +6,23 @@ export async function proxy(request: NextRequest) {
     const accessToken = request.cookies.get('accessToken')?.value
 
     if (accessToken) {
+
+        if (request.nextUrl.pathname === '/auth/login') {
+            return NextResponse.redirect(new URL('/my/profile', request.url))
+        }
+
         return NextResponse.next()
     }
 
     const refreshToken = request.cookies.get('refreshToken')?.value
 
     if (!refreshToken) {
-        return NextResponse.redirect(new URL('/login', request.url))
+
+        if (request.nextUrl.pathname === '/auth/register' || request.nextUrl.pathname === '/auth/login') {
+            return NextResponse.next()
+        }
+
+        return NextResponse.redirect(new URL('/auth/login', request.url))
     }
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {
@@ -34,9 +44,9 @@ export async function proxy(request: NextRequest) {
         return nextResponse
     }
 
-    return NextResponse.redirect(new URL('/login', request.url))
+    return NextResponse.redirect(new URL('/auth/login', request.url))
 }
 
 export const config = {
-    matcher: ['/my/:path*'],
+    matcher: ['/my/:path*', '/auth/:path*'],
 }

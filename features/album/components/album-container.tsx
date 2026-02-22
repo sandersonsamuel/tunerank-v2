@@ -62,7 +62,7 @@ export const AlbumContainer = ({ albumId }: Props) => {
             <div className="flex flex-col items-center">
                 <p className="text-3xl font-bold line-clamp-2 text-center">{album.name}</p>
                 <p className="text-slate-400 line-clamp-1 text-center">{album.artists[0].name} - {album.release_date.slice(0, 4)}</p>
-                {!isSaving && <p className="text-slate-400">{album.total_tracks} faixas</p>}
+
             </div>
 
             {

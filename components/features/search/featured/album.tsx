@@ -4,13 +4,13 @@ import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { saveAlbum } from "@/dexie/albuns"
 import { useAlbumRates } from "@/http/features/rating/hooks"
 import { cn, translateType } from "@/lib/utils"
-import { SpotifyAlbum } from "@/types/spotify/album"
+import { Album } from "@/features/album/types/album.type"
 import { CircleStar } from "lucide-react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 
 type Props = {
-  featuredResult: SpotifyAlbum
+  featuredResult: Album
 }
 
 export const FeaturedAlbum = ({ featuredResult }: Props) => {
@@ -63,11 +63,7 @@ export const FeaturedAlbum = ({ featuredResult }: Props) => {
             </span>
           )
         }
-        <div className="hidden sm:flex">
-          <Link href={featuredResult?.external_urls?.spotify} target="_blank">
-            <img className="min-w-[40px] min-h-[40px] scale-0 transition-all duration-200 group-hover:scale-100" src="/Spotify_icon.svg" alt="spotify logo" />
-          </Link>
-        </div>
+
       </CardFooter>
     </Card>
   )

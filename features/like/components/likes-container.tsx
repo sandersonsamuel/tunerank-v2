@@ -54,7 +54,7 @@ export const LikesContainer = () => {
                     <div className="flex flex-col gap-2 max-w-full">
                         {isLoading ? <p>Carregando...</p> : likes?.tracks ? likes?.tracks?.map((track) => {
 
-                            const lastImage = track.album?.images[track.album.images.length - 1]
+                            const lastImage = track.images[track.images.length - 1]
 
                             return (
                                 <ReleaseItem key={track.id} img={lastImage.url || ""} name={track.name || ""} artist={track.artists[0].name || ""} type="track" id={track.id} />

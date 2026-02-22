@@ -111,7 +111,7 @@ export function LoginForm({
                                     {isPending ? <Spinner /> : "Entrar"}
                                 </Button>
                                 <FieldDescription className="text-center">
-                                    Não tem uma conta? <Link href="/register">Cadastre-se</Link>
+                                    Não tem uma conta? <Link href="/auth/register">Cadastre-se</Link>
                                 </FieldDescription>
                             </Field>
                         </FieldGroup>

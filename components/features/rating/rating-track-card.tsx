@@ -67,7 +67,7 @@ export const TrackRatingCard = ({ trackId, onSaveAvaliation, isSaving }: Props) 
         queryClient.invalidateQueries({ queryKey: ["track-rates", trackId] })
       })
     } else {
-      router.push("/login")
+      router.push("/auth/login")
     }
   }
 
