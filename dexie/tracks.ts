@@ -1,7 +1,7 @@
-import { SpotifyTrackItem } from "@/types/spotify/track";
+import { Track } from "@/features/track/types/track.type";
 import { indexedDB } from "./index";
 
-export const saveTrack = async (track: SpotifyTrackItem) => {
+export const saveTrack = async (track: Track) => {
 
   await indexedDB.transaction("rw", indexedDB.tracks, async () => {
     

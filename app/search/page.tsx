@@ -1,26 +1,26 @@
-import { SearchContainer } from "@/components/features/search/search-container"
-import { searchSpotify } from "@/http/spotify/search"
+import { SearchContainer } from "@/features/search/components/search-container"
+import { searchServer } from "@/features/search/http/search.server"
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
 
 export default async function Search(props: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
 
   const searchParams = await props.searchParams
-  const query = searchParams.query as string
+  const query = Array.isArray(searchParams.q) ? searchParams.q[0] : searchParams.q
 
-  const {
-    betterResult,
-    albums,
-    artists,
-    tracks
-  } = await searchSpotify({ query })
+  const queryClient = new QueryClient()
+
+  if (query){
+    await queryClient.prefetchQuery({
+      queryKey: ["search", query],
+      queryFn: () => searchServer(query)
+    })
+  }
 
   return (
-    <SearchContainer
-      betterResult={betterResult}
-      albums={albums}
-      artists={artists}
-      tracks={tracks}
-    />
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <SearchContainer query={query}/>
+    </HydrationBoundary>
   )
 }

@@ -1,9 +1,9 @@
 import { saveArtist } from "@/dexie/artists"
-import { SpotifyArtistItem } from "@/types/spotify/artist"
+import { Artist } from "@/features/artist/types/artist.type"
 import Link from "next/link"
 
 type Props = {
-  artist: SpotifyArtistItem
+  artist: Artist
 }
 
 export const SearchArtistItem = ({ artist }: Props) => {

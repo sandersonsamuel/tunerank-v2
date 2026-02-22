@@ -1,10 +1,10 @@
 import { saveAlbum } from "@/dexie/albuns"
-import { SpotifyAlbum } from "@/types/spotify/album"
+import { Album } from "@/features/album/types/album.type"
 import { Heart } from "lucide-react"
 import Link from "next/link"
 
 type Props = {
-  album: SpotifyAlbum
+  album: Album
   isLiked?: boolean
 }
 

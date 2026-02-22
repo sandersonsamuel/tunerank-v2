@@ -1,14 +1,14 @@
 "use client"
 
 import { saveArtist } from '@/dexie/artists';
-import { SpotifyArtistItem } from '@/types/spotify/artist';
+import { Artist } from '@/features/artist/types/artist.type';
 import { useRouter } from 'next/navigation';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 type Props = {
-  artists: SpotifyArtistItem[]
+  artists: Artist[]
 }
 
 export const SwiperArtist = ({ artists }: Props) => {
@@ -19,7 +19,7 @@ export const SwiperArtist = ({ artists }: Props) => {
   return (
     <Swiper className='w-full' slidesPerView={2.5} spaceBetween={30}>
       {artists.map((artist) => (
-        <SwiperSlide onClick={() => { saveArtist(artist); router.push(`/artist/${artist.id}`) }} key={artist.id} className='space-y-2 sm:space-x-5 max-w-[150px] !w-fit'>
+        <SwiperSlide onClick={() => { saveArtist(artist); router.push(`/artist/${artist.id}`) }} key={artist.id} className='space-y-2 sm:space-x-5 max-w-[150px] w-fit!'>
           {
             artist.images.length > 0 && (
               <img className='size-[120px] rounded-full object-cover'

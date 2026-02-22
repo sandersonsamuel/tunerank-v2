@@ -1,14 +1,14 @@
 "use client"
 
 import { saveTrack } from "@/dexie/tracks"
-import { SpotifyTrackItemInAlbum } from "@/types/spotify/album"
+import { Track } from "@/features/track/types/track.type"
 import { SpotifyTrackItem } from "@/types/spotify/track"
 import { Heart } from "lucide-react"
 import { motion } from "motion/react"
 import Link from "next/link"
 
 type Props = {
-  track: SpotifyTrackItem | SpotifyTrackItemInAlbum
+  track: Track
   isLiked?: boolean
   minutes?: boolean
 }
@@ -16,9 +16,7 @@ type Props = {
 export const SearchTrackItem = ({ track, isLiked = false, minutes = false }: Props) => {
 
   const handleClick = () => {
-    if ("album" in track) {
-      saveTrack(track as SpotifyTrackItem)
-    }
+    saveTrack(track)
   }
 
   const duration = track.duration_ms / 1000 / 60
@@ -28,9 +26,7 @@ export const SearchTrackItem = ({ track, isLiked = false, minutes = false }: Pro
     <Link href={`/track/${track.id}`} onClick={handleClick}>
       <motion.div whileTap={{ scale: 0.97, backgroundColor: "var(--card)" }} className="flex w-full min-h-[80px] items-center justify-between hover:bg-card rounded-lg p-2 cursor-pointer px-4 relative">
         <div className="flex gap-3">
-          {
-            "album" in track && <img className={"size-16 rounded-xl object-cover"} src={track?.album?.images[0].url || track?.album?.images[1].url || track?.album?.images[2].url} alt={`${track?.name} cover`} />
-          }
+          <img className={"size-16 rounded-xl object-cover"} src={track?.images?.[0]?.url || track?.images?.[1]?.url || track?.images?.[2]?.url} alt={`${track?.name} cover`} />
           <div className="flex flex-col justify-center">
             <p className="line-clamp-2 text- lg:text-lg font-bold">{track?.name}</p>
             <span className="text-xs font-bold">

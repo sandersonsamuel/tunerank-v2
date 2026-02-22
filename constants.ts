@@ -1,1 +1,1 @@
-export const MAIN_PAGES = ["/", "/search", "/my/profile", "/my/reviews"]
+export const MAIN_PAGES = ["/", "/search", "/my/profile", "/my/reviews", "/my/likes"]

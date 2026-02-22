@@ -1,17 +1,17 @@
-import { SpotifyAlbum } from "@/types/spotify/album"
-import { SpotifyArtistItem } from "@/types/spotify/artist"
-import { SpotifyTrackItem } from "@/types/spotify/track"
+import { Album } from "@/features/album/types/album.type"
+import { Artist } from "@/features/artist/types/artist.type"
+import { Track } from "@/features/track/types/track.type"
 import { Dexie, Table } from "dexie"
 
-export interface AlbumDB extends SpotifyAlbum {
+export interface AlbumDB extends Album {
     order: number
 }
 
-export interface ArtistDB extends SpotifyArtistItem {
+export interface ArtistDB extends Artist {
     order: number
 }
 
-export interface TrackDB extends SpotifyTrackItem {
+export interface TrackDB extends Track {
     order: number
 }
 

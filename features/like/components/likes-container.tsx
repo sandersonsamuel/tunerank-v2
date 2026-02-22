@@ -8,7 +8,7 @@ import { ArrowLeft } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 
 
-export const LikesPageContainer = () => {
+export const LikesContainer = () => {
 
     const searchParams = useSearchParams()
     const router = useRouter()
@@ -28,7 +28,7 @@ export const LikesPageContainer = () => {
     }
 
     return (
-        <div className="max-w-full flex flex-col gap-3">
+        <div className="flex flex-col gap-4 px-3">
             <Button className="max-w-[100px]" variant={"outline"} onClick={() => router.push("/my/profile")}> <ArrowLeft /> Voltar</Button>
 
             <h2 className="text-xl font-bold">Minhas Curtidas</h2>
@@ -40,16 +40,26 @@ export const LikesPageContainer = () => {
                 </TabsList>
                 <TabsContent className="max-w-full" value="albums">
                     <div className="flex flex-col gap-2 max-w-full">
-                        {isLoading ? <p>Carregando...</p> : likes?.albums ? likes?.albums?.map((album) => (
-                            <ReleaseItem key={album.id} img={album.images[1].url || ""} name={album.name || ""} artist={album.artists[0].name || ""} type="album" id={album.id} />
-                        )) : <p>Você ainda não curtiu nenhum álbum</p>}
+                        {isLoading ? <p>Carregando...</p> : likes?.albums ? likes?.albums?.map((album) => {
+
+                            const lastImage = album.images[album.images.length - 1]
+
+                            return (
+                                <ReleaseItem key={album.id} img={lastImage.url || ""} name={album.name || ""} artist={album.artists[0].name || ""} type="album" id={album.id} />
+                            )
+                        }) : <p>Você ainda não curtiu nenhum álbum</p>}
                     </div>
                 </TabsContent>
                 <TabsContent className="max-w-full" value="tracks">
                     <div className="flex flex-col gap-2 max-w-full">
-                        {isLoading ? <p>Carregando...</p> : likes?.tracks ? likes?.tracks?.map((track) => (
-                            <ReleaseItem key={track.id} img={track.album?.images[1].url || ""} name={track.name || ""} artist={track.artists[0].name || ""} type="track" id={track.id} />
-                        )) : <p>Você ainda não curtiu nenhuma faixa</p>}
+                        {isLoading ? <p>Carregando...</p> : likes?.tracks ? likes?.tracks?.map((track) => {
+
+                            const lastImage = track.album?.images[track.album.images.length - 1]
+
+                            return (
+                                <ReleaseItem key={track.id} img={lastImage.url || ""} name={track.name || ""} artist={track.artists[0].name || ""} type="track" id={track.id} />
+                            )
+                        }) : <p>Você ainda não curtiu nenhuma faixa</p>}
                     </div>
                 </TabsContent>
             </Tabs>
