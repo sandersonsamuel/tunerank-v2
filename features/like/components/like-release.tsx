@@ -1,9 +1,11 @@
 "use client"
 
 import { LikeButton } from "@/components/ui/like-button"
+import { useAuth } from "@/features/auth/hooks/auth.hooks"
 import { createLike, deleteLike } from "@/features/like/http/like"
 import { Like } from "@/features/like/types/like.type"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useRouter } from "next/navigation"
 
 type Props = {
   releaseId: string
@@ -13,6 +15,9 @@ type Props = {
 
 export const LikeRelease = ({ releaseId, like, type }: Props) => {
 
+  const {data: user} = useAuth()
+
+  const router = useRouter()
   const queryClient = useQueryClient()
 
   const { mutateAsync: createLikeFn } = useMutation({
@@ -21,6 +26,7 @@ export const LikeRelease = ({ releaseId, like, type }: Props) => {
       queryClient.invalidateQueries({ queryKey: ["like", releaseId] })
     }
   })
+
   const { mutateAsync: deleteLikeFn } = useMutation({
     mutationFn: deleteLike,
     onSuccess: () => {
@@ -29,6 +35,11 @@ export const LikeRelease = ({ releaseId, like, type }: Props) => {
   })
 
   const handleClick = () => {
+
+    if (!user) {
+      return router.push("/auth/login")
+    }
+
     if (like) {
       queryClient.setQueryData(["like", releaseId], null)
       deleteLikeFn(like.releaseId)

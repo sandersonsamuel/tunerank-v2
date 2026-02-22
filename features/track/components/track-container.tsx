@@ -8,7 +8,8 @@ import { toPng } from "html-to-image"
 import { useCallback, useRef, useState } from "react"
 import { useTrack } from "../hooks/track.hooks"
 import { useLike } from "@/features/like/hooks/like.hook"
-import { LikeRelease } from "@/components/features/likes/like-release"
+import { LikeRelease } from "@/features/like/components/like-release"
+import { useAuth } from "@/features/auth/hooks/auth.hooks"
 
 type Props = {
     id: string
@@ -16,8 +17,9 @@ type Props = {
 
 export const TrackContainer = ({ id }: Props) => {
 
+    const { data: user } = useAuth()
     const { data: track } = useTrack(id)
-    const { data: like } = useLike(id)
+    const { data: like } = useLike(id, !!user)
 
     if (!track) {
         return <div>Track not found</div>

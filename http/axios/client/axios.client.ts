@@ -21,9 +21,17 @@ axiosClient.interceptors.response.use(
                 if (response.status == 200) {
                     return axiosClient(error.config)
                 }
+            } catch (error) {
+                return {
+                    data: null
+                }
             } finally {
                 isRefreshing = false;
             }
+        }
+
+        if (error.response?.status === 401) {
+            return { data: null }
         }
 
         if (Array.isArray(error.response?.data)) {
@@ -31,9 +39,7 @@ axiosClient.interceptors.response.use(
                 toast.error(error.message + " " + error.path.join(", "));
             })
         } else {
-            if (error.response.status !== 401) {
-                toast.error(error.response?.data?.message || error.response?.data?.error || "Algo deu errado");
-            }
+            toast.error(error.response?.data?.message || error.response?.data?.error || "Algo deu errado");
         }
 
         return Promise.reject(error);

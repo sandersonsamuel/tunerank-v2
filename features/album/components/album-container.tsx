@@ -1,6 +1,6 @@
 "use client"
 
-import { LikeRelease } from "@/components/features/likes/like-release"
+import { LikeRelease } from "@/features/like/components/like-release"
 import { AlbumReviewsList } from "@/components/features/rating/album-reviews"
 import { AlbumRatingCard } from "@/components/features/rating/rating-album-card"
 import { ShareButton } from "@/components/shared/share-button"
@@ -12,6 +12,7 @@ import { ListMusic } from "lucide-react"
 import Link from "next/link"
 import { useCallback, useRef, useState } from "react"
 import { useAlbum } from "../hooks/album.hooks"
+import { useAuth } from "@/features/auth/hooks/auth.hooks"
 
 type Props = {
     albumId: string
@@ -19,8 +20,9 @@ type Props = {
 
 export const AlbumContainer = ({ albumId }: Props) => {
 
+    const { data: user } = useAuth()
     const { data: album } = useAlbum(albumId)
-    const { data: like } = useLike(albumId)
+    const { data: like } = useLike(albumId, !!user)
 
     if (!album) {
         return null

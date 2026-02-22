@@ -17,7 +17,13 @@ axiosServer.interceptors.request.use(async (config) => {
 axiosServer.interceptors.response.use(
     (response) => response,
     (error) => {
-        console.log(error)
+
+        if (error.response?.status === 401) {
+            return {
+                data: null
+            }
+        }
+
         return Promise.reject(error)
     }
 );

@@ -8,9 +8,10 @@ export const useUserLikes = () => {
     })
 }
 
-export const useLike = (releaseId: string) => {
+export const useLike = (releaseId: string, user: boolean) => {
     return useQuery({
         queryKey: ["like", releaseId],
-        queryFn: () => getLike(releaseId)
+        queryFn: () => getLike(releaseId),
+        enabled: user
     })
 }
