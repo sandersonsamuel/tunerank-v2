@@ -3,7 +3,7 @@
 import { ReleaseItem } from "@/components/features/rating/release-item"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useLikes } from "@/features/like/hooks/like.hook"
+import { useUserLikes } from "@/features/like/hooks/like.hook"
 import { ArrowLeft } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
 
@@ -18,7 +18,7 @@ export const LikesPageContainer = () => {
         tab = "albums"
     }
 
-    const { data: likes } = useLikes()
+    const { data: likes, isLoading } = useUserLikes()
 
     const toggleTab = (value: string) => {
         const param = new URLSearchParams(searchParams.toString())
@@ -26,9 +26,6 @@ export const LikesPageContainer = () => {
         param.append("tab", value)
         router.push(`?${param.toString()}`)
     }
-
-
-    console.log(likes)
 
     return (
         <div className="max-w-full flex flex-col gap-3">
@@ -43,14 +40,14 @@ export const LikesPageContainer = () => {
                 </TabsList>
                 <TabsContent className="max-w-full" value="albums">
                     <div className="flex flex-col gap-2 max-w-full">
-                        {likes?.albums ? likes?.albums?.map((album) => (
+                        {isLoading ? <p>Carregando...</p> : likes?.albums ? likes?.albums?.map((album) => (
                             <ReleaseItem key={album.id} img={album.images[1].url || ""} name={album.name || ""} artist={album.artists[0].name || ""} type="album" id={album.id} />
                         )) : <p>Você ainda não curtiu nenhum álbum</p>}
                     </div>
                 </TabsContent>
                 <TabsContent className="max-w-full" value="tracks">
                     <div className="flex flex-col gap-2 max-w-full">
-                        {likes?.tracks ? likes?.tracks?.map((track) => (
+                        {isLoading ? <p>Carregando...</p> : likes?.tracks ? likes?.tracks?.map((track) => (
                             <ReleaseItem key={track.id} img={track.album?.images[1].url || ""} name={track.name || ""} artist={track.artists[0].name || ""} type="track" id={track.id} />
                         )) : <p>Você ainda não curtiu nenhuma faixa</p>}
                     </div>

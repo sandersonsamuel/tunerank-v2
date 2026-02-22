@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
 import { getLike, getLikes } from "../http/like"
 
-export const useLikes = () => {
+export const useUserLikes = () => {
     return useQuery({
-        queryKey: ["likes"],
+        queryKey: ["user-likes"],
         queryFn: () => getLikes()
     })
 }

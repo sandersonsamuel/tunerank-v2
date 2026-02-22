@@ -1,20 +1,40 @@
-import { Button } from "@/components/ui/button"
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
 import { LogOut } from "lucide-react"
-import { signOut } from "firebase/auth"
-import { auth } from "@/firebase/config"
+import { useMutation } from "@tanstack/react-query"
+import { logout } from "@/features/auth/http/auth"
+import { useQueryClient } from "@tanstack/react-query"
+import toast from "react-hot-toast"
 
 export const LogoutButton = () => {
+
+    const queryClient = useQueryClient()
+
+    const logoutMutation = useMutation({
+        mutationFn: () => logout(),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["auth"] })
+            toast.success("Logout realizado com sucesso!")
+        },
+        onError: () => {
+            toast.error("Erro ao realizar logout!")
+        }
+    })
+
+    const handleLogout = () => {
+        logoutMutation.mutate()
+    }
+
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -31,7 +51,7 @@ export const LogoutButton = () => {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                    <AlertDialogAction variant="destructive" onClick={() => signOut(auth)}>Sair</AlertDialogAction>
+                    <AlertDialogAction variant="destructive" onClick={handleLogout}>Sair</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

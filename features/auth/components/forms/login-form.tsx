@@ -25,7 +25,7 @@ import Link from "next/link"
 import { Logo } from "@/components/logo"
 import toast from "react-hot-toast"
 import { useMutation } from "@tanstack/react-query"
-import { login } from "../../http/login"
+import { login } from "../../http/auth"
 import { useRouter } from "next/navigation"
 import { Spinner } from "@/components/ui/spinner"
 
