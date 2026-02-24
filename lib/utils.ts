@@ -5,6 +5,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function getLastImage(images: { url: string }[]) {
+  return images[images.length - 1].url
+}
+
 export function translateType(type: string) {
   switch (type) {
     case "album":
