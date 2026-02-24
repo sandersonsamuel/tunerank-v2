@@ -36,11 +36,11 @@ export async function proxy(request: NextRequest) {
     if (response.ok) {
         const nextResponse = NextResponse.next()
         const setCookies = response.headers.getSetCookie()
+
         setCookies.forEach(cookie => {
-            const [cookiePair] = cookie.split(';')
-            const [name, value] = cookiePair.split('=')
-            nextResponse.cookies.set(name, value)
+            nextResponse.headers.append('Set-Cookie', cookie)
         })
+
         return nextResponse
     }
 
