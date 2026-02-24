@@ -18,6 +18,12 @@ export const RatingContainer = () => {
 
                 <h2>Álbuns</h2>
 
+                {
+                    albums?.length === 0 || !albums && (
+                        <p className="text-neutral-400">Nenhum álbum avaliado</p>
+                    )
+                }
+
                 {albums?.map((rate) => {
 
                     const lastImage = rate.album.images[rate.album.images.length - 1]
@@ -29,6 +35,13 @@ export const RatingContainer = () => {
 
 
                 <h2>Faixas</h2>
+
+                {
+                    tracks?.length === 0 || !tracks && (
+                        <p className="text-neutral-400">Nenhuma faixa avaliada</p>
+                    )
+                }
+
                 {tracks?.map((rate) => {
 
                     const lastImage = rate.track.images[rate.track.images.length - 1]

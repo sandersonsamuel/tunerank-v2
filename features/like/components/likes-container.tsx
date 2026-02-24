@@ -40,7 +40,7 @@ export const LikesContainer = () => {
                 </TabsList>
                 <TabsContent className="max-w-full" value="albums">
                     <div className="flex flex-col gap-2 max-w-full">
-                        {isLoading ? <p>Carregando...</p> : likes?.albums ? likes?.albums?.map((album) => {
+                        {isLoading ? <p>Carregando...</p> : likes?.albums && likes?.albums?.length > 0 ? likes?.albums?.map((album) => {
 
                             const lastImage = album.images[album.images.length - 1]
 
@@ -52,7 +52,7 @@ export const LikesContainer = () => {
                 </TabsContent>
                 <TabsContent className="max-w-full" value="tracks">
                     <div className="flex flex-col gap-2 max-w-full">
-                        {isLoading ? <p>Carregando...</p> : likes?.tracks ? likes?.tracks?.map((track) => {
+                        {isLoading ? <p>Carregando...</p> : likes?.tracks && likes?.tracks?.length > 0 ? likes?.tracks?.map((track) => {
 
                             const lastImage = track.images[track.images.length - 1]
 

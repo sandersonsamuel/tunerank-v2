@@ -32,16 +32,16 @@ export default function ProfileContainer() {
             </div>
 
             <div className="grid grid-cols-2 w-full gap-5 mt-10">
-                <InfoSquareCard icon={<DiscAlbum className="size-12 p-2 bg-background rounded-full border border-slate-800 text-primary" />} value={rates?.albums.length} label="Albuns avaliados" />
-                <InfoSquareCard icon={<Music className="size-12 p-2 bg-background rounded-full border border-slate-800 text-primary" />} value={rates?.tracks.length} label="Musicas avaliadas" />
+                <InfoSquareCard icon={<DiscAlbum className="size-12 p-2 bg-background rounded-full border border-slate-800 text-primary" />} value={rates?.albums?.length} label="Albuns avaliados" />
+                <InfoSquareCard icon={<Music className="size-12 p-2 bg-background rounded-full border border-slate-800 text-primary" />} value={rates?.tracks?.length} label="Musicas avaliadas" />
 
-                <InfoSquareCard icon={<Heart className="size-12 p-2 bg-background rounded-full border border-slate-800 text-destructive" />} value={likes?.albums.length} label="Albuns curtidos" />
-                <InfoSquareCard icon={<Heart className="size-12 p-2 bg-background rounded-full border border-slate-800 text-destructive" />} value={likes?.tracks.length} label="Musicas curtidas" />
+                <InfoSquareCard icon={<Heart className="size-12 p-2 bg-background rounded-full border border-slate-800 text-destructive" />} value={likes?.albums?.length} label="Albuns curtidos" />
+                <InfoSquareCard icon={<Heart className="size-12 p-2 bg-background rounded-full border border-slate-800 text-destructive" />} value={likes?.tracks?.length} label="Musicas curtidas" />
             </div>
 
             <h2 className="text-xl mt-5 w-full text-left text-neutral-300">Biblioteca</h2>
 
-            <Link href={"/my/reviews"} className="flex flex-col gap-2 w-full mt-3">
+            <Link href={"/my/rates"} className="flex flex-col gap-2 w-full mt-3">
                 <Button variant="outline" size={"lg"} className="w-full justify-start py-7 text-lg">
                     <StarIcon className="size-6 mr-2" /> Minhas avaliações
                 </Button>

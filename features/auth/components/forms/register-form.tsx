@@ -76,12 +76,13 @@ export function RegisterForm({
                         <FieldGroup >
                             <Controller name="name" control={control} render={({ field, fieldState }) => (
                                 <Field>
-                                    <FieldLabel htmlFor="username">Nome</FieldLabel>
+                                    <FieldLabel htmlFor="name">Nome</FieldLabel>
                                     <Input
                                         {...field}
-                                        id="username"
+                                        id="name"
                                         type="text"
                                         placeholder="José da Silva"
+                                        autoComplete="name"
                                         required
                                     />
                                     {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -95,6 +96,7 @@ export function RegisterForm({
                                         id="email"
                                         type="email"
                                         placeholder="m@example.com"
+                                        autoComplete="email"
                                         required
                                     />
                                     {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -107,6 +109,7 @@ export function RegisterForm({
                                         {...field}
                                         id="password"
                                         type="password"
+                                        autoComplete="new-password"
                                         required
                                     />
                                     {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
