@@ -1,7 +1,10 @@
-"use client"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
+import { CircleStar } from "lucide-react"
+import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts'
 
 import { useAlbumRates } from "@/http/features/rating/hooks"
-import { ReviewsChart } from "./public-reviews"
+import { useReleaseRates } from "@/features/rating/hooks/rating.hooks"
 
 type Props = {
   albumId: string
@@ -9,11 +12,76 @@ type Props = {
 
 export const AlbumReviewsList = ({ albumId }: Props) => {
 
-  const { data: rates } = useAlbumRates(albumId)
+  const { data: rates } = useReleaseRates(albumId)
 
   if (rates) {
     return (
-      <ReviewsChart rates={rates} />
-    )
+    <Card className="w-full max-w-[500px] text-slate-500 gap-0">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-center font-normal">Avaliações de outros usuários</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="h-[200px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={rates.distribution}>
+              <XAxis
+                dataKey="rating"
+                stroke="#888888"
+                fontSize={12}
+                tickLine={false}
+                axisLine={false}
+              />
+              <Tooltip
+                cursor={{ fill: 'transparent' }}
+                content={({ active, payload }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <div className="rounded-lg border bg-background p-3 shadow-sm outline-0">
+                        <div className="grid grid-cols-2 gap-2">
+                          <div className="flex flex-col">
+                            <span className="text-[0.70rem]">
+                              Avaliação
+                            </span>
+                            <span className="font-bold text-center">
+                              {payload[0].payload.rating}
+                            </span>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-[0.70rem]">
+                              Avaliações
+                            </span>
+                            <span className="font-bold text-center">
+                              {payload[0].payload.count}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  }
+                  return null
+                }}
+              />
+              <Bar
+                dataKey="count"
+                fill="var(--color-primary)"
+                radius={[8, 8, 0, 0]}
+              />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </CardContent>
+      <CardFooter className="flex gap-2 items-center justify-end">
+        {
+          rates.total > 0 ? (
+            <p className={cn("text-xl", rates.average < 3 ? "text-red-400" : rates.average >= 3 && rates.average < 4 ? "text-yellow-400" : rates.average >= 4 ? "text-blue-400" : "text-gray-400")}>{rates.average.toFixed(1)}</p>
+          ) : (
+            <p className={cn("text-sm", "text-gray-400")}>{"Seja o primeiro a avaliar"}</p>
+          )
+        }
+        <CircleStar className={cn(rates.average < 3 && rates.total > 0 ? "text-red-400" : rates.average >= 3 && rates.average < 4 && rates.total > 0 ? "text-yellow-400" : rates.average >= 4 && rates.total > 0 ? "text-blue-400" : "text-gray-400")} />
+      </CardFooter>
+    </Card>
+  )
+    
   }
 }

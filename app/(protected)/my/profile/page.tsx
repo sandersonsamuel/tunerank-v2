@@ -1,6 +1,6 @@
 import ProfileContainer from "@/components/layout/pages/profile-page"
 import { getLikesServer } from "@/features/like/http/like.server"
-import { getReviewsServer } from "@/features/review/http/review.server"
+import { getUserRatesServer } from "@/features/rating/http/rating.server"
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
 
 export default async function ProfilePage() {
@@ -8,8 +8,8 @@ export default async function ProfilePage() {
     const queryClient = new QueryClient()
 
     await queryClient.ensureQueryData({
-        queryKey: ['user-reviews'],
-        queryFn: getReviewsServer,
+        queryKey: ['user-rates'],
+        queryFn: getUserRatesServer,
     })
 
     await queryClient.ensureQueryData({

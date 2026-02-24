@@ -2,7 +2,6 @@
 
 import { useTrackRates } from "@/http/features/rating/hooks"
 import { useQuery } from "@tanstack/react-query"
-import { ReviewsChart } from "./public-reviews"
 
 
 type Props = {
@@ -15,7 +14,7 @@ export const TrackReviewsList = ({ trackId }: Props) => {
 
   if (rates) {
     return (
-      <ReviewsChart rates={rates} />
+      <RatingsChart rates={rates} />
     )
   }
 }

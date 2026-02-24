@@ -1,11 +1,11 @@
 "use client"
 
 import { ReleaseItem } from "@/components/features/rating/release-item"
-import { useUserReviews } from "../hooks/review.hooks"
+import { useUserRates } from "../hooks/rating.hooks"
 
-export const ReviewContainer = () => {
+export const RatingContainer = () => {
 
-    const { data } = useUserReviews()
+    const { data } = useUserRates()
 
     if (data) {
 

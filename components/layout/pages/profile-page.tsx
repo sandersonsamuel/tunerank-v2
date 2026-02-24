@@ -4,7 +4,7 @@ import { LogoutButton } from "@/components/features/profile/logout"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/features/auth/hooks/auth.hooks"
 import { useUserLikes } from "@/features/like/hooks/like.hook"
-import { useUserReviews } from "@/features/review/hooks/review.hooks"
+import { useUserRates } from "@/features/rating/hooks/rating.hooks"
 import { DiscAlbum, Heart, Music, StarIcon } from "lucide-react"
 import { motion } from "motion/react"
 import Link from "next/link"
@@ -14,7 +14,7 @@ export default function ProfileContainer() {
     const { data: user } = useAuth()
 
     const userLetters = user?.name?.split(" ").map((name) => name[0]).join("").toUpperCase()
-    const { data: reviews } = useUserReviews()
+    const { data: rates } = useUserRates()
     const { data: likes } = useUserLikes()
 
     return (
@@ -32,8 +32,8 @@ export default function ProfileContainer() {
             </div>
 
             <div className="grid grid-cols-2 w-full gap-5 mt-10">
-                <InfoSquareCard icon={<DiscAlbum className="size-12 p-2 bg-background rounded-full border border-slate-800 text-primary" />} value={reviews?.albums.length} label="Albuns avaliados" />
-                <InfoSquareCard icon={<Music className="size-12 p-2 bg-background rounded-full border border-slate-800 text-primary" />} value={reviews?.tracks.length} label="Musicas avaliadas" />
+                <InfoSquareCard icon={<DiscAlbum className="size-12 p-2 bg-background rounded-full border border-slate-800 text-primary" />} value={rates?.albums.length} label="Albuns avaliados" />
+                <InfoSquareCard icon={<Music className="size-12 p-2 bg-background rounded-full border border-slate-800 text-primary" />} value={rates?.tracks.length} label="Musicas avaliadas" />
 
                 <InfoSquareCard icon={<Heart className="size-12 p-2 bg-background rounded-full border border-slate-800 text-destructive" />} value={likes?.albums.length} label="Albuns curtidos" />
                 <InfoSquareCard icon={<Heart className="size-12 p-2 bg-background rounded-full border border-slate-800 text-destructive" />} value={likes?.tracks.length} label="Musicas curtidas" />

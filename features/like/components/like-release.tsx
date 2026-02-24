@@ -24,12 +24,18 @@ export const LikeRelease = ({ releaseId, like, type }: Props) => {
     mutationFn: createLike,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["like", releaseId] })
+    },
+    onError: () => {
+      queryClient.invalidateQueries({ queryKey: ["like", releaseId] })
     }
   })
 
   const { mutateAsync: deleteLikeFn } = useMutation({
     mutationFn: deleteLike,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["like", releaseId] })
+    },
+    onError: () => {
       queryClient.invalidateQueries({ queryKey: ["like", releaseId] })
     }
   })

@@ -4,19 +4,16 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
-import { postRatingAlbum } from "@/http/features/rating/album-services"
-import { useGetRatingAlbum } from "@/http/features/rating/hooks"
-import { RateRelease } from "@/types/rate"
-import { userState } from "@/valtio"
-import { useQueryClient } from "@tanstack/react-query"
-import { User } from "firebase/auth"
-import { Timestamp } from "firebase/firestore"
+import { useAuth } from "@/features/auth/hooks/auth.hooks"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Download } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { useSnapshot } from "valtio"
-import { StarRatingInput } from "./star-rate-container"
+import { StarRatingInput } from "../../../components/features/rating/star-rate-container"
+import { useReleaseUserRate } from "../hooks/rating.hooks"
+import { createRate } from "../http/rating"
+import { createRateSchema } from "../schemas/rating.schemas"
 
 type Props = {
   albumId: string
@@ -24,14 +21,29 @@ type Props = {
   isSaving: boolean
 }
 
-export const AlbumRatingCard = ({ albumId, onSaveAvaliation, isSaving }: Props) => {
+export const AlbumRateCard = ({ albumId, onSaveAvaliation, isSaving }: Props) => {
 
   const router = useRouter()
+  const queryClient = useQueryClient()
+
   const [rate, setRate] = useState(0)
   const [comment, setComment] = useState("")
-  const { data } = useSnapshot(userState)
-  const { data: rating } = useGetRatingAlbum(albumId, data?.uid)
-  const queryClient = useQueryClient()
+
+  const { data: user } = useAuth()
+  const { data: rating } = useReleaseUserRate(albumId)
+
+  const { mutateAsync } = useMutation({
+    mutationFn: createRate,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['user-rate', albumId],
+      })
+
+      queryClient.invalidateQueries({
+        queryKey: ['release-rates', albumId],
+      })
+    }
+  })
 
   const reviewChanged = rating?.review !== comment
   const rateChanged = rating?.rating !== rate
@@ -44,28 +56,27 @@ export const AlbumRatingCard = ({ albumId, onSaveAvaliation, isSaving }: Props) 
   }, [rating])
 
   const submitAvaliation = () => {
+    if (user) {
 
-    if (rate === 0) {
-      return toast.error("A avaliação precisa ser de no mínimo 0.5 estrelas")
-    }
-
-    if (data) {
-      const user = data as User
-      postRatingAlbum(rate, comment, albumId, user).then(() => {
-        const newRating: RateRelease = {
-          userId: user.uid,
-          releaseId: albumId,
-          rating: rate,
-          review: comment,
-          type: "album",
-          createdAt: Timestamp.now(),
-          updatedAt: Timestamp.now()
-        }
-
-        queryClient.setQueryData(["rating-album", albumId, user.uid], newRating)
-        queryClient.invalidateQueries({ queryKey: ["rating-album", albumId, user.uid] })
-        queryClient.invalidateQueries({ queryKey: ["album-rates", albumId] })
+      const payload = createRateSchema.safeParse({
+        releaseId: albumId,
+        rating: rate,
+        review: comment,
+        type: "ALBUM"
       })
+
+      if (payload.success) {
+        toast.promise(
+          mutateAsync(payload.data),
+          {
+            success: "Avaliação enviada com sucesso",
+            loading: "Enviando avaliação..."
+          }
+        )
+      } else {
+        toast.error(JSON.parse(payload.error.message)[0].message)
+      }
+
     } else {
       router.push("/auth/login")
     }

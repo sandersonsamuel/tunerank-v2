@@ -1,5 +1,5 @@
-import { ReviewContainer } from "@/features/review/components/review-container"
-import { getReviewsServer } from "@/features/review/http/review.server"
+import { RatingContainer } from "@/features/rating/components/rating-container"
+import { getUserRatesServer } from "@/features/rating/http/rating.server"
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
 
 export default async function ReviewsPage() {
@@ -7,13 +7,13 @@ export default async function ReviewsPage() {
     const queryClient = new QueryClient()
 
     await queryClient.ensureQueryData({
-        queryKey: ['user-reviews'],
-        queryFn: getReviewsServer,
+        queryKey: ['user-rates'],
+        queryFn: getUserRatesServer,
     })
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>
-            <ReviewContainer />
+            <RatingContainer />
         </HydrationBoundary>
     )
 }
