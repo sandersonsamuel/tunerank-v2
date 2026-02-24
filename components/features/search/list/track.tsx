@@ -10,21 +10,21 @@ type Props = {
   track: Track
   isLiked?: boolean
   minutes?: boolean
+  img?: boolean
 }
 
-export const SearchTrackItem = ({ track, isLiked = false, minutes = false }: Props) => {
+export const SearchTrackItem = ({ track, isLiked = false, minutes = false, img = true }: Props) => {
 
   const handleClick = () => {
     saveTrack(track)
   }
 
-
-
   return (
     <Link href={`/track/${track.id}`} onClick={handleClick}>
       <motion.div whileTap={{ scale: 0.97, backgroundColor: "var(--card)" }} className="flex w-full min-h-[80px] items-center justify-between hover:bg-card rounded-lg p-2 cursor-pointer px-4 relative">
         <div className="flex gap-3">
-          <img className={"size-16 rounded-xl object-cover"} src={track?.images?.[0]?.url} alt={`${track?.name} cover`} />
+
+          {img && <img className={"size-16 rounded-xl object-cover"} src={track?.images?.[0]?.url} alt={`${track?.name} cover`} />}
 
           <div className="flex flex-col justify-center">
             <p className="line-clamp-2 text- lg:text-lg font-bold">{track?.name}</p>

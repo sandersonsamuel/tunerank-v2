@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getReleaseRates, getUserRate, getUserRates } from "../http/rating"
-import { getAlbumRates } from "@/http/features/rating/album-services"
+import { getUserRate, getUserRates, getReleaseRates } from "../http/rating"
 
 export const useUserRates = () => {
     return useQuery({
@@ -13,10 +12,10 @@ export const useUserRates = () => {
     })
 }
 
-export const useReleaseRates = (albumId: string) => {
+export const useReleaseRates = (releaseId: string) => {
     return useQuery({
-        queryKey: ['release-rates', albumId],
-        queryFn: () => getReleaseRates(albumId),
+        queryKey: ['release-rates', releaseId],
+        queryFn: () => getReleaseRates(releaseId),
         refetchOnMount: true,
         refetchOnWindowFocus: true,
         refetchOnReconnect: true,

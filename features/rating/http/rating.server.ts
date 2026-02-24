@@ -1,5 +1,5 @@
 import { axiosServer } from "@/http/axios/server/axios.server"
-import { UserRatesResponse } from "../types/review.type"
+import { UserRatesResponse } from "../types/rate.type"
 
 export const getUserRatesServer = async () => {
     const response = await axiosServer.get<UserRatesResponse>('/rating/user')

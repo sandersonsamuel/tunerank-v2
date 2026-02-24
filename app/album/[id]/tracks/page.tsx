@@ -1,6 +1,6 @@
-import { FeaturedAlbum } from "@/components/features/search/featured/album";
-import { SearchTrackItem } from "@/components/features/search/list/track";
-import { getAlbum } from "@/http/spotify/albums";
+import { getAlbumServer } from "@/features/album/http/album.server"
+import { AlbumTracksContainer } from "@/features/track/components/album-tracks-container"
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
 
 type Props = {
   params: Promise<{ id: string }>
@@ -8,24 +8,16 @@ type Props = {
 
 export default async function TracksPage({ params }: Props) {
   const { id } = await params
-  const album = await getAlbum(id)
+  const queryClient = new QueryClient()
 
-  if (Array.isArray(album) || "albums" in album) {
-    return <div>Album not found</div>
-  }
+  await queryClient.ensureQueryData({
+    queryKey: ['album', id],
+    queryFn: () => getAlbumServer(id),
+  })
 
   return (
-    <div className="px-3 mt-7">
-      <FeaturedAlbum featuredResult={album} />
-      <div className="flex flex-col gap-4 mt-3">
-        <h2 className="sm:text-xl font-bold">Faixas</h2>
-
-        <div className="flex flex-col gap-2">
-          {album.tracks.items.map((track) => (
-            <SearchTrackItem key={track.id} track={track} minutes />
-          ))}
-        </div>
-      </div>
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <AlbumTracksContainer id={id} />
+    </HydrationBoundary>
   )
 }

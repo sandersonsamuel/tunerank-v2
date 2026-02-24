@@ -18,23 +18,23 @@ export const RatingContainer = () => {
 
                 <h2>Álbuns</h2>
 
-                {albums?.map((review) => {
+                {albums?.map((rate) => {
 
-                    const lastImage = review.album.images[review.album.images.length - 1]
+                    const lastImage = rate.album.images[rate.album.images.length - 1]
 
                     return (
-                        <ReleaseItem key={review.releaseId} img={lastImage.url || ""} name={review.album.name || ""} artist={review.album.artists[0].name || ""} type="album" id={review.releaseId} rating={review.rating} />
+                        <ReleaseItem key={rate.releaseId} img={lastImage.url || ""} name={rate.album.name || ""} artist={rate.album.artists[0].name || ""} type="album" id={rate.releaseId} rating={rate.rating} />
                     )
                 })}
 
 
                 <h2>Faixas</h2>
-                {tracks?.map((review) => {
+                {tracks?.map((rate) => {
 
-                    const lastImage = review.track.images[review.track.images.length - 1]
+                    const lastImage = rate.track.images[rate.track.images.length - 1]
 
                     return (
-                        <ReleaseItem key={review.releaseId} img={lastImage.url || ""} name={review.track.name || ""} artist={review.track.artists[0].name || ""} type="track" id={review.releaseId} rating={review.rating} />
+                        <ReleaseItem key={rate.releaseId} img={lastImage.url || ""} name={rate.track.name || ""} artist={rate.track.artists[0].name || ""} type="track" id={rate.releaseId} rating={rate.rating} />
                     )
                 })}
 

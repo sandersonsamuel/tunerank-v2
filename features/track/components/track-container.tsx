@@ -1,7 +1,7 @@
 "use client"
 
-import { TrackRatingCard } from "@/components/features/rating/rating-track-card"
-import { TrackReviewsList } from "@/components/features/rating/track-reviews"
+import { TrackRateCard } from "@/features/rating/components/rate-track-card"
+import { TrackRatesList } from "@/features/rating/components/rates-track-list"
 import { ShareButton } from "@/components/shared/share-button"
 import { cn } from "@/lib/utils"
 import { toPng } from "html-to-image"
@@ -84,10 +84,10 @@ export const TrackContainer = ({ id }: Props) => {
                 )
             }
 
-            <TrackRatingCard key={id} trackId={id} onSaveAvaliation={onSaveAvaliation} isSaving={isSaving} />
+            <TrackRateCard key={id} trackId={id} onSaveAvaliation={onSaveAvaliation} isSaving={isSaving} />
 
             {
-                !isSaving && <TrackReviewsList trackId={id} />
+                !isSaving && <TrackRatesList trackId={id} />
             }
         </div>
     )

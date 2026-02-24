@@ -1,5 +1,5 @@
 import { axiosClient } from "@/http/axios/client/axios.client"
-import { Rate, ReleaseRatesResponse, UserRatesResponse } from "../types/review.type"
+import { Rate, ReleaseRatesResponse, UserRatesResponse } from "../types/rate.type"
 import { CreateRateDto } from "../schemas/rating.schemas"
 
 export const getUserRates = async () => {

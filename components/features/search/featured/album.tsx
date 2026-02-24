@@ -2,7 +2,7 @@
 
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { saveAlbum } from "@/dexie/albuns"
-import { useAlbumRates } from "@/http/features/rating/hooks"
+import { useReleaseRates } from "@/features/rating/hooks/rating.hooks"
 import { cn, translateType } from "@/lib/utils"
 import { Album } from "@/features/album/types/album.type"
 import { CircleStar } from "lucide-react"
@@ -15,7 +15,7 @@ type Props = {
 
 export const FeaturedAlbum = ({ featuredResult }: Props) => {
 
-  const { data: rates } = useAlbumRates(featuredResult.id)
+  const { data: rates } = useReleaseRates(featuredResult.id)
   const router = useRouter()
   const path = usePathname()
 

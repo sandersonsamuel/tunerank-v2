@@ -1,12 +1,12 @@
 "use client"
 
-import { AlbumReviewsList } from "@/components/features/rating/album-reviews"
+import { AlbumRatesList } from "@/features/rating/components/rates-album-list"
 import { ShareButton } from "@/components/shared/share-button"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/features/auth/hooks/auth.hooks"
 import { LikeRelease } from "@/features/like/components/like-release"
 import { useLike } from "@/features/like/hooks/like.hook"
-import { AlbumRateCard } from "@/features/rating/components/rating-album-card"
+import { AlbumRateCard } from "@/features/rating/components/rate-album-card"
 import { cn } from "@/lib/utils"
 import { toPng } from "html-to-image"
 import { ListMusic } from "lucide-react"
@@ -84,7 +84,7 @@ export const AlbumContainer = ({ albumId }: Props) => {
             <AlbumRateCard albumId={album.id} onSaveAvaliation={onSaveAvaliation} isSaving={isSaving} />
 
             {
-                !isSaving && <AlbumReviewsList albumId={album.id} />
+                !isSaving && <AlbumRatesList albumId={album.id} />
             }
         </div>
     )
