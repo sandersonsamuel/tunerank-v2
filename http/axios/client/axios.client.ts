@@ -2,7 +2,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 export const axiosClient = axios.create({
-    baseURL: "/api",
+    baseURL: process.env.NEXT_PUBLIC_API_URL,
     withCredentials: true,
 })
 
