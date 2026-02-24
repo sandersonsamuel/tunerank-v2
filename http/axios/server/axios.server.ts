@@ -10,12 +10,18 @@ axiosServer.interceptors.request.use(async (config) => {
     const accessToken = cookieStore.get("accessToken")?.value
     if (accessToken) {
         config.headers.Cookie = `accessToken=${accessToken}`
+        console.log(`[Axios Server Request] ${config.method?.toUpperCase()} ${config.url} - Token: ${accessToken.substring(0, 10)}...`);
+    } else {
+        console.warn(`[Axios Server Request] ${config.method?.toUpperCase()} ${config.url} - NO ACCESS TOKEN`);
     }
     return config
 })
 
 axiosServer.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        console.log(`[Axios Server Response] ${response.config.method?.toUpperCase()} ${response.config.url} - Status: ${response.status}`);
+        return response
+    },
     (error) => {
 
         if (error.response?.status === 401) {
