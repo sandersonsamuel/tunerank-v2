@@ -24,6 +24,11 @@ axiosServer.interceptors.response.use(
             }
         }
 
+        console.error(`[Axios Server Error] ${error.config?.method?.toUpperCase()} ${error.config?.url} - Status: ${error.response?.status}`);
+        if (error.response?.data) {
+            console.error(`[Axios Server Error Data]:`, error.response.data);
+        }
+
         return Promise.reject(error)
     }
 );
