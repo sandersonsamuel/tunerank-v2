@@ -2,13 +2,12 @@
 
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { saveArtist } from "@/dexie/artists"
+import { Artist } from "@/features/artist/types/artist.type"
 import { translateType } from "@/lib/utils"
-import { SpotifyArtistItem } from "@/types/spotify/artist"
-import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 
 type Props = {
-  featuredResult: SpotifyArtistItem,
+  featuredResult: Artist,
 }
 
 export const FeaturedArtist = ({ featuredResult }: Props) => {
