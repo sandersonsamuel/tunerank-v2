@@ -1,16 +1,15 @@
 "use client"
 
-import { SearchBar } from "@/components/features/search/search-input"
+import { SearchBar } from "@/features/search/components/search-input"
 import { MAIN_PAGES } from "@/constants"
 import { cn } from "@/lib/utils"
-import { userState } from "@/valtio"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useSnapshot } from "valtio"
+import { useAuth } from "@/features/auth/hooks/auth.hooks"
 
 export const NavigationHeader = () => {
 
-  const user = useSnapshot(userState)
+  const { data: user } = useAuth()
   const pathName = usePathname()
 
   return (
@@ -22,7 +21,7 @@ export const NavigationHeader = () => {
       <div className={cn("sm:flex gap-5 sm:w-full items-center justify-end", pathName != "/search" ? "hidden" : "")}>
         <span className="hidden sm:block">
           {
-            !user.data && <Link className="hover:underline" href={"/auth/login"}>Entrar</Link>
+            !user && <Link className="hover:underline" href={"/auth/login"}>Entrar</Link>
           }
         </span>
         <SearchBar />

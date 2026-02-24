@@ -1,10 +1,10 @@
 "use client"
 
-import { SearchAlbumItem } from "@/components/features/search/list/album"
-import { SearchArtistItem } from "@/components/features/search/list/artist"
-import { SwiperAlbum } from "@/components/features/search/list/swiper-albuns"
-import { SwiperArtist } from "@/components/features/search/list/swiper-artists"
-import { SearchTrackItem } from "@/components/features/search/list/track"
+import { SearchAlbumItem } from "@/features/search/components/list/album"
+import { SearchArtistItem } from "@/features/search/components/list/artist"
+import { SwiperAlbum } from "@/features/search/components/list/swiper-albuns"
+import { SwiperArtist } from "@/features/search/components/list/swiper-artists"
+import { SearchTrackItem } from "@/features/search/components/list/track"
 import { useSearch } from "../hooks/search.hooks"
 import { HistorySearch } from "./history-search"
 

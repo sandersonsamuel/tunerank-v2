@@ -1,7 +1,7 @@
 "use client"
 
-import { SwiperAlbum } from "@/components/features/search/list/swiper-albuns"
-import { SearchTrackItem } from "@/components/features/search/list/track"
+import { SwiperAlbum } from "@/features/search/components/list/swiper-albuns"
+import { SearchTrackItem } from "@/features/search/components/list/track"
 import Image from 'next/image'
 import { useArtist, useArtistAlbums, useArtistTopTracks } from "../hooks/artist.hooks"
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { ReleaseItem } from "@/components/features/rating/release-item"
+import { ReleaseItem } from "@/components/release-item"
 import { useUserRates } from "../hooks/rating.hooks"
 
 export const RatingContainer = () => {

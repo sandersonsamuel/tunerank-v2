@@ -1,6 +1,6 @@
 "use client"
 
-import { ReleaseItem } from "@/components/features/rating/release-item"
+import { ReleaseItem } from "@/components/release-item"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useUserLikes } from "@/features/like/hooks/like.hook"

@@ -1,7 +1,7 @@
 "use client"
 
-import { FeaturedAlbum } from "@/components/features/search/featured/album";
-import { SearchTrackItem } from "@/components/features/search/list/track";
+import { FeaturedAlbum } from "@/features/search/components/featured/album";
+import { SearchTrackItem } from "@/features/search/components/list/track";
 import { useAlbum } from "@/features/album/hooks/album.hooks";
 
 type Props = {

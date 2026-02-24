@@ -6,7 +6,6 @@ import { useReleaseRates } from "@/features/rating/hooks/rating.hooks"
 import { cn, translateType } from "@/lib/utils"
 import { Album } from "@/features/album/types/album.type"
 import { CircleStar } from "lucide-react"
-import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 
 type Props = {

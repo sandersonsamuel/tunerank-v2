@@ -1,6 +1,6 @@
 "use client"
 
-import { LogoutButton } from "@/components/features/profile/logout"
+import { LogoutButton } from "@/features/auth/components/logout"
 import { Button } from "@/components/ui/button"
 import { useAuth } from "@/features/auth/hooks/auth.hooks"
 import { useUserLikes } from "@/features/like/hooks/like.hook"

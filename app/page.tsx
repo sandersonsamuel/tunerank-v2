@@ -3,12 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useAuth } from "@/features/auth/hooks/auth.hooks";
-import { userState } from "@/valtio";
 import { ArrowRight } from "lucide-react";
-import { motion } from 'motion/react'
+import { motion } from 'motion/react';
 import { useRouter } from "next/navigation";
 import Typewriter from 'typewriter-effect';
-import { useSnapshot } from "valtio";
 
 export default function Home() {
 
