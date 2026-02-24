@@ -25,11 +25,11 @@ export const ArtistContainer = ({ artistId }: Props) => {
                 <div className="relative h-fit">
                     <Image className="w-full h-full max-w-[500px] max-h-[250px] md:h-full object-cover mb-9" src={artist.images[0].url} alt={artist.name} width={1000} height={1000} />
                     <div className="absolute inset-x-0 bottom-0 h-40
-                  bg-gradient-to-t
+                  bg-linear-to-t
                   from-background 
                   to-transparent" />
                     <div className="absolute inset-x-0 bottom-0 h-24
-                  bg-gradient-to-t
+                  bg-linear-to-t
                   from-background 
                   to-transparent" />
                     <div className="w-full max-w-[500px] p-4 absolute -bottom-9 flex items-center justify-between">
