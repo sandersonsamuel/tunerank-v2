@@ -1,4 +1,3 @@
-import { saveAlbum } from "@/dexie/albuns"
 import { Album } from "@/features/album/types/album.type"
 import { getLastImage } from "@/lib/utils"
 import { Heart } from "lucide-react"
@@ -11,12 +10,8 @@ type Props = {
 
 export const SearchAlbumItem = ({ album, isLiked }: Props) => {
 
-  const handleClick = () => {
-    saveAlbum(album)
-  }
-
   return (
-    <Link href={`/album/${album.id}`} onClick={handleClick}>
+    <Link href={`/album/${album.id}`}>
       <div className="max-w-[132px] space-y-2 p-3 xl:p-4 hover:bg-card rounded-xl cursor-pointer transition-colors relative">
         <img className={"w-[80px] xl:w-[100px] rounded-xl"} src={getLastImage(album.images)} alt={album?.name + " profile image"} />
         {isLiked && <Heart className="absolute bottom-2 right-3 w-4 h-4 fill-primary text-primary/80" />}

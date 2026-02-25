@@ -42,6 +42,10 @@ export const TrackRateCard = ({ trackId, onSaveAvaliation, isSaving }: Props) =>
             queryClient.invalidateQueries({
                 queryKey: ['release-rates', trackId],
             })
+
+            queryClient.invalidateQueries({
+                queryKey: ['user-rates']
+            })
         }
     })
 

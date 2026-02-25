@@ -5,25 +5,33 @@ import { TrackRatesList } from "@/features/rating/components/rates-track-list"
 import { ShareButton } from "@/components/shared/share-button"
 import { cn } from "@/lib/utils"
 import { toPng } from "html-to-image"
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useTrack } from "../hooks/track.hooks"
 import { useLike } from "@/features/like/hooks/like.hook"
 import { LikeRelease } from "@/features/like/components/like-release"
 import { useAuth } from "@/features/auth/hooks/auth.hooks"
+import { saveTrack } from "@/dexie/tracks"
 
 type Props = {
-    id: string
+    trackId: string
 }
 
-export const TrackContainer = ({ id }: Props) => {
+export const TrackContainer = ({ trackId }: Props) => {
 
     const { data: user } = useAuth()
-    const { data: track } = useTrack(id)
-    const { data: like } = useLike(id, !!user)
+    const { data: track } = useTrack(trackId)
+    const { data: like } = useLike(trackId, !!user)
 
     if (!track) {
         return <div>Track not found</div>
     }
+
+    useEffect(() => {
+        if (!track) {
+            return
+        }
+        saveTrack(track)
+    }, [trackId])
 
     const firstArtist = track.artists[0] || "Artista desconhecido"
     const restArtists = track.artists.slice(1, 6)
@@ -78,16 +86,16 @@ export const TrackContainer = ({ id }: Props) => {
             {
                 !isSaving && (
                     <div className="flex gap-2">
-                        <LikeRelease releaseId={id} like={like} type="TRACK" />
-                        <ShareButton url={`/track/${id}`} title={track.name} type="track" artist={firstArtist.name} />
+                        <LikeRelease releaseId={trackId} like={like} type="TRACK" />
+                        <ShareButton url={`/track/${trackId}`} title={track.name} type="track" artist={firstArtist.name} />
                     </div>
                 )
             }
 
-            <TrackRateCard key={id} trackId={id} onSaveAvaliation={onSaveAvaliation} isSaving={isSaving} />
+            <TrackRateCard key={trackId} trackId={trackId} onSaveAvaliation={onSaveAvaliation} isSaving={isSaving} />
 
             {
-                !isSaving && <TrackRatesList trackId={id} />
+                !isSaving && <TrackRatesList trackId={trackId} />
             }
         </div>
     )

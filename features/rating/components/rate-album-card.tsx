@@ -42,6 +42,10 @@ export const AlbumRateCard = ({ albumId, onSaveAvaliation, isSaving }: Props) =>
       queryClient.invalidateQueries({
         queryKey: ['release-rates', albumId],
       })
+
+      queryClient.invalidateQueries({
+        queryKey: ['user-rates']
+      })
     }
   })
 

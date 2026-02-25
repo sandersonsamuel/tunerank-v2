@@ -11,8 +11,9 @@ import { cn } from "@/lib/utils"
 import { toPng } from "html-to-image"
 import { ListMusic } from "lucide-react"
 import Link from "next/link"
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { useAlbum } from "../hooks/album.hooks"
+import { saveAlbum } from "@/dexie/albuns"
 
 type Props = {
     albumId: string
@@ -24,12 +25,20 @@ export const AlbumContainer = ({ albumId }: Props) => {
     const { data: album } = useAlbum(albumId)
     const { data: like } = useLike(albumId, !!user)
 
+
     if (!album) {
         return null
     }
 
     const ref = useRef<HTMLDivElement>(null)
     const [isSaving, setIsSaving] = useState(false)
+
+    useEffect(() => {
+        if (!album) {
+            return
+        }
+        saveAlbum(album)
+    }, [albumId])
 
     const onSaveAvaliation = useCallback(() => {
         if (ref.current === null) {

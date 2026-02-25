@@ -4,6 +4,8 @@ import { SwiperAlbum } from "@/features/search/components/list/swiper-albuns"
 import { SearchTrackItem } from "@/features/search/components/list/track"
 import Image from 'next/image'
 import { useArtist, useArtistAlbums, useArtistTopTracks } from "../hooks/artist.hooks"
+import { useEffect } from "react"
+import { saveArtist } from "@/dexie/artists"
 
 type Props = {
     artistId: string
@@ -18,6 +20,13 @@ export const ArtistContainer = ({ artistId }: Props) => {
     if (!artist) {
         return null
     }
+
+    useEffect(() => {
+        if (!artist) {
+            return
+        }
+        saveArtist(artist)
+    }, [artistId])
 
     return (
         <div className="min-h-screen">

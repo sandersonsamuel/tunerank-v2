@@ -37,7 +37,7 @@ export default async function TrackPage({ params }: Props) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <TrackContainer id={id} />
+      <TrackContainer trackId={id} />
     </HydrationBoundary>
   )
 }

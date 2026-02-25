@@ -1,4 +1,3 @@
-import { saveArtist } from "@/dexie/artists"
 import { Artist } from "@/features/artist/types/artist.type"
 import { getLastImage } from "@/lib/utils"
 import Link from "next/link"
@@ -9,12 +8,8 @@ type Props = {
 
 export const SearchArtistItem = ({ artist }: Props) => {
 
-  const handleClick = () => {
-    saveArtist(artist)
-  }
-
   return (
-    <Link href={`/artist/${artist.id}`} onClick={handleClick} className="flex flex-col items-center space-y-2 p-3 xl:p-4 hover:bg-card rounded-xl cursor-pointer transition-colors">
+    <Link href={`/artist/${artist.id}`} className="flex flex-col items-center space-y-2 p-3 xl:p-4 hover:bg-card rounded-xl cursor-pointer transition-colors">
       <img className="size-20 xl:size-24 rounded-full object-cover" src={getLastImage(artist.images)} alt={artist?.name + " profile image"} />
       <div className="text-center">
         <p className="line-clamp-2 text-sm">{artist?.name}</p>

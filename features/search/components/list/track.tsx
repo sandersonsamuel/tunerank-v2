@@ -1,6 +1,5 @@
 "use client"
 
-import { saveTrack } from "@/dexie/tracks"
 import { Track } from "@/features/track/types/track.type"
 import { getLastImage } from "@/lib/utils"
 import { Heart } from "lucide-react"
@@ -16,12 +15,8 @@ type Props = {
 
 export const SearchTrackItem = ({ track, isLiked = false, minutes = false, img = true }: Props) => {
 
-  const handleClick = () => {
-    saveTrack(track)
-  }
-
   return (
-    <Link href={`/track/${track.id}`} onClick={handleClick}>
+    <Link href={`/track/${track.id}`}>
       <motion.div whileTap={{ scale: 0.97, backgroundColor: "var(--card)" }} className="flex w-full min-h-[80px] items-center justify-between hover:bg-card rounded-lg p-2 cursor-pointer px-4 relative">
         <div className="flex gap-3">
 

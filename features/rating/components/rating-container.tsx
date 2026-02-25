@@ -10,7 +10,7 @@ export const RatingContainer = () => {
     if (data) {
 
         const { albums, tracks } = data
-
+        
         return (
             <div className="flex flex-col gap-4 px-3">
 
@@ -19,7 +19,7 @@ export const RatingContainer = () => {
                 <h2>Álbuns</h2>
 
                 {
-                    albums?.length === 0 || !albums && (
+                    (albums?.length === 0 || !albums) && (
                         <p className="text-neutral-400">Nenhum álbum avaliado</p>
                     )
                 }
@@ -37,7 +37,7 @@ export const RatingContainer = () => {
                 <h2>Faixas</h2>
 
                 {
-                    tracks?.length === 0 || !tracks && (
+                    (tracks?.length === 0 || !tracks) && (
                         <p className="text-neutral-400">Nenhuma faixa avaliada</p>
                     )
                 }
