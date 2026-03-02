@@ -16,25 +16,27 @@ export default async function ArtistPage({ params }: Props) {
 
   const queryClient = new QueryClient()
 
-  await queryClient.ensureQueryData({
-    queryKey: ["artist", id],
-    queryFn: () => getArtistServer(id),
-  })
+  const promises = [
+    queryClient.ensureQueryData({
+      queryKey: ["artist", id],
+      queryFn: () => getArtistServer(id),
+    }),
+    queryClient.ensureQueryData({
+      queryKey: ["artist-top-tracks", id],
+      queryFn: () => getArtistTopTracksServer(id),
+    }),
+    queryClient.ensureQueryData({
+      queryKey: ["artist-albums", id],
+      queryFn: () => getArtistAlbumsServer(id),
+    })
+  ]
 
-  await queryClient.ensureQueryData({
-    queryKey: ["artist-top-tracks", id],
-    queryFn: () => getArtistTopTracksServer(id),
-  })
-
-  await queryClient.ensureQueryData({
-    queryKey: ["artist-albums", id],
-    queryFn: () => getArtistAlbumsServer(id),
-  })
+  await Promise.all(promises)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ArtistContainer artistId={id} />
     </HydrationBoundary>
   )
-  
+
 }

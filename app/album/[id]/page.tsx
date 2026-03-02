@@ -14,25 +14,26 @@ export default async function AlbumPage({ params }: Props) {
 
   const queryClient = new QueryClient()
 
-  await queryClient.ensureQueryData({
-    queryKey: ['album', id],
-    queryFn: () => getAlbumServer(id),
-  })
+  const promises = [
+    queryClient.ensureQueryData({
+      queryKey: ['album', id],
+      queryFn: () => getAlbumServer(id),
+    }),
+    queryClient.ensureQueryData({
+      queryKey: ['like', id],
+      queryFn: () => getLikeServer(id),
+    }),
+    queryClient.ensureQueryData({
+      queryKey: ['user-rate', id],
+      queryFn: () => getReleaseUserRateServer(id),
+    }),
+    queryClient.ensureQueryData({
+      queryKey: ['release-rates', id],
+      queryFn: () => getReleaseRatesServer(id),
+    })
+  ]
 
-  await queryClient.ensureQueryData({
-    queryKey: ['like', id],
-    queryFn: () => getLikeServer(id),
-  })
-
-  await queryClient.ensureQueryData({
-    queryKey: ['user-rate', id],
-    queryFn: () => getReleaseUserRateServer(id),
-  })
-
-  await queryClient.ensureQueryData({
-    queryKey: ['release-rates', id],
-    queryFn: () => getReleaseRatesServer(id),
-  })
+  await Promise.all(promises)
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

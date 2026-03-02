@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 export const axiosClient = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL,
     withCredentials: true,
+    validateStatus: () => true
 })
 
 let isRefreshing = false;
