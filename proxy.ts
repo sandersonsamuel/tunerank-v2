@@ -1,14 +1,27 @@
-import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 
 export async function proxy(request: NextRequest) {
-    
     const accessToken = request.cookies.get('accessToken')?.value
 
     if (accessToken) {
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': `accessToken=${accessToken}`
+            }
+        })
+
+        if (!response.ok) {
+            return NextResponse.redirect(new URL('/auth/login', request.url))
+        }
+
         if (request.nextUrl.pathname === '/auth/login') {
             return NextResponse.redirect(new URL('/my/profile', request.url))
         }
+
         return NextResponse.next()
     }
 
