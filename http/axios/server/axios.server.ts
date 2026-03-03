@@ -25,6 +25,8 @@ axiosServer.interceptors.response.use(
                 data: null
             }
         }
+        
+        console.log(error)
 
         return Promise.reject(error)
     }

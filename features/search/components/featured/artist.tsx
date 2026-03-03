@@ -5,6 +5,7 @@ import { saveArtist } from "@/dexie/artists"
 import { Artist } from "@/features/artist/types/artist.type"
 import { translateType } from "@/lib/utils"
 import { usePathname, useRouter } from "next/navigation"
+import Image from "next/image"
 
 type Props = {
   featuredResult: Artist,
@@ -28,7 +29,7 @@ export const FeaturedArtist = ({ featuredResult }: Props) => {
     <Card onClick={redirectToArtist} className="group max-w-[500px] gap-2 hover:cursor-pointer bg-card/50 hover:bg-card transition-colors">
       <CardHeader>
         <CardTitle className="text-2xl">
-          <img className="size-24 sm:size-32 rounded-full" src={featuredResult?.images[1].url} alt={`${featuredResult?.name} cover`} />
+          <Image width={180} height={180} className="size-24 sm:size-32 rounded-full" src={featuredResult?.images[1].url} alt={`${featuredResult?.name} cover`} />
         </CardTitle>
       </CardHeader>
       <CardFooter className="flex justify-between items-center">

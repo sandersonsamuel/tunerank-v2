@@ -2,6 +2,7 @@ import { Album } from "@/features/album/types/album.type"
 import { getLastImage } from "@/lib/utils"
 import { Heart } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 type Props = {
   album: Album
@@ -13,7 +14,7 @@ export const SearchAlbumItem = ({ album, isLiked }: Props) => {
   return (
     <Link href={`/album/${album.id}`}>
       <div className="max-w-[132px] space-y-2 p-3 xl:p-4 hover:bg-card rounded-xl cursor-pointer transition-colors relative">
-        <img className={"w-[80px] xl:w-[100px] rounded-xl"} src={getLastImage(album.images)} alt={album?.name + " profile image"} />
+        <Image width={100} height={100} className={"w-[80px] xl:w-[100px] rounded-xl"} src={getLastImage(album.images)} alt={album?.name + " profile image"} />
         {isLiked && <Heart className="absolute bottom-2 right-3 w-4 h-4 fill-primary text-primary/80" />}
         <div>
           <p className="line-clamp-2">{album?.name}</p>

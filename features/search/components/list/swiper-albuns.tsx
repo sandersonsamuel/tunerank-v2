@@ -7,6 +7,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Album } from '@/features/album/types/album.type';
+import Image from 'next/image';
 
 type Props = {
   albums: Album[]
@@ -26,7 +27,7 @@ export const SwiperAlbum = ({ albums, isLikedFn }: Props) => {
     <Swiper className='w-full mx-0! sm:w-auto' slidesPerView={2.5} spaceBetween={30}>
       {albums.map((album) => (
         <SwiperSlide onClick={() => handleClickAlbum(album)} key={album.id} className='space-y-2 max-w-[120px]'>
-          <img className={'w-[120px] rounded-lg object-cover relative'}
+          <Image width={100} height={100} className={'w-[120px] rounded-lg object-cover relative'}
             src={album.images[1].url || album.images[0].url || album.images[2].url}
             alt={album.name}
             title={album.name + " profile photo"} />

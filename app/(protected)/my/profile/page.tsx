@@ -7,15 +7,18 @@ export default async function ProfilePage() {
 
     const queryClient = new QueryClient()
 
-    await queryClient.ensureQueryData({
-        queryKey: ['user-rates'],
-        queryFn: getUserRatesServer,
-    })
+    const promises = [
+        queryClient.ensureQueryData({
+            queryKey: ['user-rates'],
+            queryFn: getUserRatesServer,
+        }),
+        queryClient.ensureQueryData({
+            queryKey: ["user-likes"],
+            queryFn: () => getLikesServer()
+        })
+    ]
 
-    await queryClient.ensureQueryData({
-        queryKey: ["user-likes"],
-        queryFn: () => getLikesServer()
-    })
+    await Promise.all(promises)
 
     return (
         <HydrationBoundary state={dehydrate(queryClient)}>

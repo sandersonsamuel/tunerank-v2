@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAuth } from "@/features/auth/hooks/auth.hooks"
+import Image from "next/image"
 
 export const NavigationHeader = () => {
 
@@ -15,7 +16,7 @@ export const NavigationHeader = () => {
   return (
     <div className={cn("px-3 md:px-5 py-3 flex justify-between gap-3 items-center", MAIN_PAGES.includes(pathName) ? "" : "hidden")}>
       <Link href={"/"} className="sm:w-full">
-        <img className="w-44 sm:w-60" src="/Tune_Rank.svg" alt="logo tune rank" />
+        <Image width={240} height={60} className="w-44 sm:w-60" src="/Tune_Rank.svg" alt="logo tune rank" />
       </Link>
 
       <div className={cn("sm:flex gap-5 sm:w-full items-center justify-end", pathName != "/search" ? "hidden" : "")}>

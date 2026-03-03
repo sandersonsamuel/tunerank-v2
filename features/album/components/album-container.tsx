@@ -14,6 +14,7 @@ import Link from "next/link"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useAlbum } from "../hooks/album.hooks"
 import { saveAlbum } from "@/dexie/albuns"
+import Image from "next/image"
 
 type Props = {
     albumId: string
@@ -68,8 +69,8 @@ export const AlbumContainer = ({ albumId }: Props) => {
 
     return (
         <div className={cn("flex flex-col items-center gap-4 px-3 mt-7 bg-background", isSaving && "p-10 mt-0 max-w-[550px]")} ref={ref}>
-            <img className="w-40 sm:w-60" src="/Tune_Rank.svg" alt="logo tune rank" />
-            <img className="w-[180px] h-[180px] object-cover rounded-lg" src={album.images[0].url} alt={album.name + " album photo"} />
+            <Image width={240} height={60} className="w-40 sm:w-60" src="/Tune_Rank.svg" alt="logo tune rank" />
+            <Image width={180} height={180} className="w-[180px] h-[180px] object-cover rounded-lg" src={album.images[0].url} alt={album.name + " album photo"} />
             <div className="flex flex-col items-center">
                 <p className="text-3xl font-bold line-clamp-2 text-center">{album.name}</p>
                 <p className="text-slate-400 line-clamp-1 text-center">{album.artists[0].name} - {album.release_date.slice(0, 4)}</p>

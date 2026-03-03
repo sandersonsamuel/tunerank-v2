@@ -7,6 +7,7 @@ import { cn, translateType } from "@/lib/utils"
 import { Album } from "@/features/album/types/album.type"
 import { CircleStar } from "lucide-react"
 import { usePathname, useRouter } from "next/navigation"
+import Image from "next/image"
 
 type Props = {
   featuredResult: Album
@@ -39,7 +40,7 @@ export const FeaturedAlbum = ({ featuredResult }: Props) => {
     <Card onClick={redirectToAlbum} className="group max-w-[500px] gap-2 hover:cursor-pointer bg-card/50 hover:bg-card transition-colors">
       <CardHeader>
         <CardTitle className="text-2xl">
-          <img className="size-24 sm:size-32 rounded-xl" src={featuredResult?.images[1].url} alt={`${featuredResult?.name} cover`} />
+          <Image width={180} height={180} className="size-24 sm:size-32 rounded-xl" src={featuredResult?.images[1].url} alt={`${featuredResult?.name} cover`} />
         </CardTitle>
       </CardHeader>
       <CardFooter className="flex justify-between items-end">
