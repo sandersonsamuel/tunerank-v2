@@ -2,12 +2,8 @@ import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
 export async function proxy(request: NextRequest) {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || request.nextUrl.origin
+    const baseUrl = process.env.INTERNAL_API_URL
     const accessToken = request.cookies.get('accessToken')?.value
-
-    console.log('baseUrl:', baseUrl)
-    console.log('env:', process.env.NEXT_PUBLIC_API_URL)
-    console.log('origin:', request.nextUrl.origin)
 
 
     if (accessToken) {
