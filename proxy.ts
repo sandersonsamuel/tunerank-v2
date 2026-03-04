@@ -2,11 +2,11 @@ import type { NextRequest } from 'next/server'
 import { NextResponse } from 'next/server'
 
 export async function proxy(request: NextRequest) {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || request.nextUrl.origin
     const accessToken = request.cookies.get('accessToken')?.value
 
     if (accessToken) {
-
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
+        const response = await fetch(`${baseUrl}/auth/me`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,10 +31,11 @@ export async function proxy(request: NextRequest) {
         if (request.nextUrl.pathname === '/auth/register' || request.nextUrl.pathname === '/auth/login') {
             return NextResponse.next()
         }
+        
         return NextResponse.redirect(new URL('/auth/login', request.url))
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`, {
+    const response = await fetch(`${baseUrl}/auth/refresh`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
