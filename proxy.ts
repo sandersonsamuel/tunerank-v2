@@ -5,6 +5,11 @@ export async function proxy(request: NextRequest) {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || request.nextUrl.origin
     const accessToken = request.cookies.get('accessToken')?.value
 
+    console.log('baseUrl:', baseUrl)
+    console.log('env:', process.env.NEXT_PUBLIC_API_URL)
+    console.log('origin:', request.nextUrl.origin)
+
+
     if (accessToken) {
         const response = await fetch(`${baseUrl}/auth/me`, {
             method: 'GET',
@@ -31,7 +36,7 @@ export async function proxy(request: NextRequest) {
         if (request.nextUrl.pathname === '/auth/register' || request.nextUrl.pathname === '/auth/login') {
             return NextResponse.next()
         }
-        
+
         return NextResponse.redirect(new URL('/auth/login', request.url))
     }
 
