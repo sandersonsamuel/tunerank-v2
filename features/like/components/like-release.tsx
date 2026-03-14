@@ -15,7 +15,7 @@ type Props = {
 
 export const LikeRelease = ({ releaseId, like, type }: Props) => {
 
-  const {data: user} = useAuth()
+  const { data: user } = useAuth()
 
   const router = useRouter()
   const queryClient = useQueryClient()

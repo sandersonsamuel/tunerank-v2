@@ -15,10 +15,17 @@ export const registerSchema = z.object({
 
 export type RegisterSchemaType = z.infer<typeof registerSchema>
 
+export const resendVerificationSchema = z.object({
+  email: z.email("Email inválido"),
+})
+
+export type ResendVerificationSchemaType = z.infer<typeof resendVerificationSchema>
+
 export type AuthMeResponse = {
   id: string
   name: string
   email: string
+  emailVerified: boolean
   createdAt: Date
   updatedAt: Date
 }

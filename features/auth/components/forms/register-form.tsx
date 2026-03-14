@@ -20,6 +20,7 @@ import { registerSchema } from "@/features/auth/schemas/auth.schemas"
 import { cn } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import Link from "next/link"
+import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import z from "zod"
 import { Logo } from "@/components/logo"
@@ -28,6 +29,7 @@ import { register } from "../../http/auth"
 import { Spinner } from "@/components/ui/spinner"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
+import { Eye, EyeOff } from "lucide-react"
 
 export function RegisterForm({
     className,
@@ -35,6 +37,7 @@ export function RegisterForm({
 }: React.ComponentProps<"div">) {
 
     const router = useRouter()
+    const [showPassword, setShowPassword] = useState(false)
 
     const { mutateAsync, isPending } = useMutation({
         mutationFn: register
@@ -54,7 +57,7 @@ export function RegisterForm({
             mutateAsync(data),
             {
                 loading: "Cadastrando...",
-                success: "Cadastro realizado com sucesso!"
+                success: "Cadastro realizado! Verifique seu email para ativar a conta."
             }
         ).then(() => {
             router.push("/auth/login")
@@ -73,7 +76,7 @@ export function RegisterForm({
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                        <FieldGroup >
+                        <FieldGroup>
                             <Controller name="name" control={control} render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="name">Nome</FieldLabel>
@@ -105,13 +108,27 @@ export function RegisterForm({
                             <Controller name="password" control={control} render={({ field, fieldState }) => (
                                 <Field>
                                     <FieldLabel htmlFor="password">Senha</FieldLabel>
-                                    <Input
-                                        {...field}
-                                        id="password"
-                                        type="password"
-                                        autoComplete="new-password"
-                                        required
-                                    />
+                                    <div className="relative">
+                                        <Input
+                                            {...field}
+                                            id="password"
+                                            type={showPassword ? "text" : "password"}
+                                            autoComplete="new-password"
+                                            required
+                                            className="pr-9"
+                                        />
+                                        <Button
+                                            type="button"
+                                            variant="ghost"
+                                            size="icon-sm"
+                                            onClick={() => setShowPassword(prev => !prev)}
+                                            className="absolute right-1 top-1/2 -translate-y-1/2 text-muted-foreground"
+                                            tabIndex={-1}
+                                            aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                                        >
+                                            {showPassword ? <EyeOff /> : <Eye />}
+                                        </Button>
+                                    </div>
                                     {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                                 </Field>
                             )} />

@@ -1,5 +1,5 @@
 import { axiosClient } from "@/http/axios/client/axios.client"
-import { AuthMeResponse, LoginSchemaType, RegisterSchemaType } from "../schemas/auth.schemas"
+import { AuthMeResponse, LoginSchemaType, RegisterSchemaType, ResendVerificationSchemaType } from "../schemas/auth.schemas"
 
 export const getAuth = async () => {
     const response = await axiosClient.get<AuthMeResponse>('/auth/me')
@@ -16,4 +16,12 @@ export const register = async (registerData: RegisterSchemaType) => {
 
 export const logout = async () => {
     return await axiosClient.post("/auth/logout")
+}
+
+export const verifyEmail = async (token: string) => {
+    return await axiosClient.get(`/auth/verify-email?token=${token}`)
+}
+
+export const resendVerification = async (data: ResendVerificationSchemaType) => {
+    return await axiosClient.post("/auth/resend-verification", data)
 }
