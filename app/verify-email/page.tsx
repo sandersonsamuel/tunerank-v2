@@ -33,7 +33,6 @@ export default async function VerifyEmailPage({ searchParams }: Props) {
     if (!token) {
         return (
             <VerifyLayout
-                icon={<XCircle className="text-destructive" size={40} />}
                 title="Link inválido"
                 description="Nenhum token foi encontrado. Verifique se o link do email está correto."
             >
@@ -49,7 +48,6 @@ export default async function VerifyEmailPage({ searchParams }: Props) {
     if (status === "success") {
         return (
             <VerifyLayout
-                icon={<CheckCircle className="text-green-500" size={40} />}
                 title="Email verificado!"
                 description="Seu email foi verificado com sucesso. Agora você pode entrar na sua conta."
             >
@@ -63,7 +61,6 @@ export default async function VerifyEmailPage({ searchParams }: Props) {
     if (status === "already-verified") {
         return (
             <VerifyLayout
-                icon={<MailOpen className="text-muted-foreground" size={40} />}
                 title="Email já verificado"
                 description="Seu email já foi verificado anteriormente. Você pode entrar na sua conta normalmente."
             >
@@ -77,7 +74,6 @@ export default async function VerifyEmailPage({ searchParams }: Props) {
     if (status === "expired") {
         return (
             <VerifyLayout
-                icon={<Clock className="text-yellow-500" size={40} />}
                 title="Link expirado"
                 description="Seu link de verificação expirou (válido por 24h). Insira seu email para receber um novo link."
             >
@@ -88,7 +84,6 @@ export default async function VerifyEmailPage({ searchParams }: Props) {
 
     return (
         <VerifyLayout
-            icon={<XCircle className="text-destructive" size={40} />}
             title="Token inválido"
             description="O token de verificação não é válido. Solicite um novo link de verificação."
         >
@@ -98,12 +93,10 @@ export default async function VerifyEmailPage({ searchParams }: Props) {
 }
 
 function VerifyLayout({
-    icon,
     title,
     description,
     children,
 }: {
-    icon: React.ReactNode
     title: string
     description: string
     children: React.ReactNode
@@ -114,7 +107,6 @@ function VerifyLayout({
                 <Card>
                     <CardHeader>
                         <Logo className="mb-2" />
-                        <div className="mb-1">{icon}</div>
                         <CardTitle>{title}</CardTitle>
                         <CardDescription>{description}</CardDescription>
                     </CardHeader>
